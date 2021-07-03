@@ -1,100 +1,162 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Health Tracker - Track Your Health
 
-Welcome USER_NAME,
+![AmIResponsive]()
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. The last update to this file was: **July 1, 2021**
+[View Project on Heroku](https://jakubmrowicki.github.io/memory-keypad/)
 
-## Gitpod Reminders
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+The goal of this project is to create an __easy to use health and well-being tracker__. Add entries to keep track of your prescriptions, doctor's advice and more.
 
-`python3 -m http.server`
+# Table of Contents
+1. [Overview/Description](#1-overviewdescription)
+2. [User Stories](#2-user-stories)
+3. [User Experience (UX)](#3-user-experienceux)
+    * [Strategy Plane](#strategy-plane)
+    * [Scope Plane](#scope-plane)
+    * [Structure Plane](#structure-plane)
+    * [Skeleton Plane](#skeleton-plane)
+    * [Surface Plane](#surface-plane)
+4. [Features](#4-features)
+    * [Future Features](#future-features)
+5. [Technologies Used](#5-technologies-used)
+6. [Trials & Testing](#6-trials--testing)
+7. [Problem Solving](#7-problem-areas--solutions)
+8. [Code Validation](#8-code-validation)
+9. [Website Deployment](#9-website-deployment)
+10. [Credits & Acknowledgments](#10-credits--acknowledgments)
+11. [Repository Support](#11-repository-support)
 
-A blue button should appear to click: _Make Public_,
+# 1: Overview/Description
 
-Another blue button should appear to click: _Open Browser_.
+This project aims to create a diary style app that allow you to keep a health diary.
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+The website will allow the user to keep track of what they notice about their health, keep history of what medications they've been prescribed, record allergic reactions they have experienced and more.
 
-A blue button should appear to click: _Make Public_,
+# 2: User Stories
 
-Another blue button should appear to click: _Open Browser_.
+Below are some user stories which reveal how this website is useful for the end user.
++ 'A user: I want to __keep track of my health and well-being__'
++ 'A user: I want to be able to search for a medication name and see if I have previously had an adverse reaction to it'
++ 'A user: I want to write down and save my doctor's advice so that I don't forget it'
++ 'A user: I want to be able to pin important entries to the top of my timeline, such as important things to mention to my doctor upon my next visit'
++ 'A user: I want to be able to keep a well-being diary where I can write about how I'm feeling at that time'
++ 'A user: I want my profile to diplay my current medications and allergies'
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
-
-To log into the Heroku toolbelt CLI:
-
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
-
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
-
-------
-
-## Release History
-
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
-
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
-
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
-
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
-
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
-
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
-
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
-
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
-------
-
-## FAQ about the uptime script
-
-**Why have you added this script?**
-
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
-
-**How will this affect me?**
-
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
-
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
-
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
-
-**So….?**
-
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
-
-**Can I opt out?**
-
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
-
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
-
-**Anything more?**
-
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
+# 3: User Experience(UX)
+## Strategy Plane
+* What is the purpose of this website?
+    * The purpose of this project is to create a health and well-being diary.
+* Who is the user?
+    * This game suits all age groups, anybody can use it to keep record of their health.
+* Value for the user?
+    * The user gets to keep track of their health and be able to recall their health details easier if asked my a professional.
 
 ---
+## Scope Plane
+### Function Requirements
+* Provide a log timeline of the users entries sorted by new to old.
+* Allow the user to search for keywords. For example the user might have a diary entry where they have an adverse reaction to particular medication and may choose to find an alternative.
+* Allow the user to pin, edit and delete diary entries.
+* Allow the user to make their profile public if they choose to share their profile link.
+### Content Requirements
+* Home page where new users are introduced to the web app and it's features.
+* Private profile where you can see your current medications, any allergies etc.
+* A timeline of diary entries, sorted by new with pinned messages highlighted at the top.
+* Account settings page where you can edit your profile details.
+---
+## Structure Plane
+### Information Architecture
+* The website will be lean in terms of written content, however there needs to be a home page that will introduce new users to the web app and it's features.
+* There should be annotations on inputs to best describe what they mean.
+### Interaction Design
+* 
 
-Happy coding!
+---
+## Skeleton Plane
+Wireframes can be found [here](https://github.com/JakubMrowicki/memory-keypad/blob/master/assets/docs/wireframes.pdf)
+
+The website will be laid out over a single page where you can play the game as well as find more information about it.
+
+The footer will contain copyright information and some social media links.
+
+---
+## Surface Plane
+### Colours
+__Primary Colours:__
+Colour | Colour Code | Preview
+--- | --- | :---:
+Light-Blue | #336AFF | ![#F26432](https://via.placeholder.com/15/336AFF/000000?text=+)
+Green | #2B9348 | ![!2B9348](https://via.placeholder.com/15/2B9348/000000?text=+)
+Red | #D90429 | ![#D90429](https://via.placeholder.com/15/D90429/000000?text=+)
+Dark-Grey | #191C24 | ![#191C24](https://via.placeholder.com/15/191C24/000000?text=+)
+
+
+__Text Body Colours:__
+Colour | Colour Code | Preview
+--- | --- | :---:
+Off-White | #FAFAFA | ![#FAFAFA](https://via.placeholder.com/15/FAFAFA/000000?text=+)
+
+
+### Typography
+"[Zilla Slab Highlight](https://fonts.google.com/specimen/Zilla+Slab+Highlight)" will be used at the top of the page to display the title of the game.
+
+"[Roboto](https://fonts.google.com/specimen/Roboto)" will be used for any headings.
+
+"[Open Sans](https://fonts.google.com/specimen/Open+Sans)" will be used for the body.
+# 4: Features
+* 
+### Future Features
+* 
+
+
+# 5: Technologies Used
+This project uses the following technologies:
+* HTML5
+* CSS3
+* JavaScript
+* jQuery
+* Bootstrap 4.6
+* FontAwesome Icons
+* Google Fonts
+* Github & Git
+* GitPod
+* Heroku
+* Photoshop
+
+# 6: Trials & Testing
+* Website was run through the Mobile-Friendly Test by Google and was deemed Mobile Friendly. To further test this, I opened the website on my phone as well as friends and co-workers phones.
+    * [Google Mobile-Friendly Test](https://search.google.com/test/mobile-friendly?id=YtC6Iv3b3o0T8zjpbLbqcw)
+* Validated HTML, CSS and JS using validators.
+* Checked that all links are working using [deadlinkchecker.com](https://www.deadlinkchecker.com/website-dead-link-checker.asp)
+* Ran style.css through [Autoprefixer](https://autoprefixer.github.io/) to add vendor prefixes.
+* Used [Color Contrast Accessibility Validator](https://color.a11y.com/Contrast/) to check for Colour Contrast issues.
+* Checked and fixed any typos and grammar issues that I could find by using a [Chrome Extension called Webpage Spell-Check](https://chrome.google.com/webstore/detail/webpage-spell-check/mgdhaoimpabdhmacaclbbjddhngchjik).
+
+# 7: Problem Areas & Solutions
+* My friends were not sure if the game was active or not when I showed them.
+    * __Solution:__ I added a glow to the keypad keys to let users know the game is started.
+
+# 8: Code Validation
+HTML was Validated using the [W3 Validator](https://validator.w3.org/) and returned no errors and 1 warning to be ignored.
+![warning](https://i.imgur.com/msqbuIj.png)
+
+The reason why I have prevented users from resizing the page is because on mobiles, double tapping on the screen will zoom into the game. This is undesireable and bad UX.
+
+CSS was Validated using [Jigsaw W3 Validator](https://jigsaw.w3.org/css-validator/) and returned no errors.
+
+JavaScript was Validated using [JSHint](https://jshint.com/)
+
+Alicia Ramirez' [Closing Tag Checker for HTML5](https://www.aliciaramirez.com/closing-tags-checker/) was used to further validate the code.
+
+# 9: Website Deployment
+This project is deployed to the public by using Heroku
+
+[View On Heroku](https://jakubmrowicki.github.io/memory-keypad/)
+
+# 10: Credits & Acknowledgments
+* 
+
+### Content
+* All written content is written by myself.
+# 11: Repository Support
+For support please email at [xdshiftblue@gmail.com](mailto:xdshiftblue@gmail.com)
