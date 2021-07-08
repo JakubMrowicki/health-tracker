@@ -5,7 +5,7 @@
 [View Project on Heroku](https://jakubmrowicki.github.io/memory-keypad/)
 
 
-The goal of this project is to create an __easy to use health and well-being tracker__. Add entries to keep track of your prescriptions, doctor's advice and more.
+The goal of this project is to create an __easy to use health and well-being tracker__. Add entries to keep track of your prescriptions, doctor's advice, appointments and more.
 
 # Table of Contents
 1. [Overview/Description](#1-overviewdescription)
@@ -28,7 +28,7 @@ The goal of this project is to create an __easy to use health and well-being tra
 
 # 1: Overview/Description
 
-This project aims to create a diary style app that allow you to keep a health diary.
+This project aims to create a diary style app that allow you to keep track of your health.
 
 The website will allow the user to keep track of what they notice about their health, keep history of what medications they've been prescribed, record allergic reactions they have experienced and more.
 
@@ -36,7 +36,7 @@ The website will allow the user to keep track of what they notice about their he
 
 Below are some user stories which reveal how this website is useful for the end user.
 + 'A user: I want to __keep track of my health and well-being__'
-+ 'A user: I want to be able to search for a medication name and see if I have previously had an adverse reaction to it'
++ 'A user: I want to be able to search for a medication name and check if I have previously had an adverse reaction to it'
 + 'A user: I want to write down and save my doctor's advice so that I don't forget it'
 + 'A user: I want to be able to pin important entries to the top of my timeline, such as important things to mention to my doctor upon my next visit'
 + 'A user: I want to be able to keep a well-being diary where I can write about how I'm feeling at that time'
@@ -54,7 +54,7 @@ Below are some user stories which reveal how this website is useful for the end 
 ---
 ## Scope Plane
 ### Function Requirements
-* Provide a log timeline of the users entries sorted by new to old.
+* Provide a timeline of the users entries sorted by new to old.
 * Allow the user to search for keywords. For example the user might have a diary entry where they have an adverse reaction to particular medication and may choose to find an alternative.
 * Allow the user to pin, edit and delete diary entries.
 * Allow the user to make their profile public if they choose to share their profile link.
@@ -69,13 +69,12 @@ Below are some user stories which reveal how this website is useful for the end 
 * The website will be lean in terms of written content, however there needs to be a home page that will introduce new users to the web app and it's features.
 * There should be annotations on inputs to best describe what they mean.
 ### Interaction Design
-* 
+* There should be a way to edit a user's profile.
+* Each entry should be able to be pinned, edited and deleted.
 
 ---
 ## Skeleton Plane
 Wireframes can be found [here](https://github.com/JakubMrowicki/memory-keypad/blob/master/assets/docs/wireframes.pdf)
-
-The website will be laid out over a single page where you can play the game as well as find more information about it.
 
 The footer will contain copyright information and some social media links.
 
