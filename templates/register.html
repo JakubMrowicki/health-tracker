@@ -16,8 +16,9 @@
     <header class="container welcome-container">
         <div class="row">
             <div class="col-md">
-                <h1 class="text-center">Register your account</h1>
-                <span class="d-block text-center">You're well on your way to starting your own health diary. Fill in your details below to get started!</span>
+                <h1 class="text-center">Let's Get Started</h1>
+                <span class="d-block text-center">You're well on your way to starting your own health diary.
+                    <br>Please fill in your details below!</span>
                 
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
@@ -33,23 +34,26 @@
 
             </div>
         </div>
-        <div id="default" class="row">
+        <div class="row">
             <div class="col-md">
                 <form action="{{ url_for('register') }}" method="POST">
                     <div class="mb-3">
                         <label for="firstname" class="form-label">First Name</label>
                         <input type="text" class="form-control" id="firstname"
-                            placeholder="What can we call you?">
+                            name="firstname" placeholder="What can we call you?"
+                            pattern="^[a-zA-Z]{2,10}$" minlength="2" maxlength="10" required>
                     </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <input type="text" class="form-control" id="username"
-                            placeholder="Enter your username">
+                            name="username" placeholder="Enter your username"
+                            minlength="2" maxlength="10" pattern="^[a-zA-Z0-9]{2,10}$" required>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password"
-                            placeholder="Choose a password you'll remember">
+                            name="password" placeholder="Choose a password you'll remember" 
+                            minlength="6" required>
                     </div>
                     <div class="mb-3 d-flex justify-content-center">
                         <button type="submit" class="btn btn-success">Register Your Account</button>

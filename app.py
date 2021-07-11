@@ -25,8 +25,27 @@ def home():
     return render_template("welcome.html")
 
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
+        username_check = mongo.db.users.find_one({"username": request.form.get("username").lower()})
+        if username_check:
+            flash("User already exists, try logging in instead.")
+            return redirect(url_for("home"))
+        password_check = len(request.form.get("password"))
+        if password_check < 6:
+            flash("Your password is too short, make sure it's at least 6 characters long.")
+            return render_template("register.html")
+        new_user = {
+            "firstname": request.form.get("firstname").lower().capitalize(),
+            "username": request.form.get("username").lower(),
+            "password": generate_password_hash(request.form.get("password"))
+        }
+        mongo.db.users.insert_one(new_user)
+
+        session["user"] = request.form.get("username").lower()
+        flash("You're in!")
+        return redirect(url_for("register"))
     return render_template("register.html")
 
 
