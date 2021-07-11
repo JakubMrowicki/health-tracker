@@ -148,7 +148,14 @@ JavaScript was Validated using [JSHint](https://jshint.com/)
 Alicia Ramirez' [Closing Tag Checker for HTML5](https://www.aliciaramirez.com/closing-tags-checker/) was used to further validate the code.
 
 # 9: Website Deployment
-This project is deployed to the public by using Heroku
+This project is deployed to the public by using Heroku. This is how I did it.
+
+1. Create a new app using the dashboard on Heroku.
+2. Deployment method: GitHub for automatic deployment.
+3. Go to your app settings tab and configure variables to match __env.py__ file.
+4. Ensure that your repository contains the requirements.txt and Procfile files.
+5. You can now enable automatic deployment on Heroku.
+6. Scrolling down the page, you can click deploy branch.
 
 [View On Heroku](https://jakubmrowicki.github.io/memory-keypad/)
 
