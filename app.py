@@ -38,6 +38,13 @@ def home():
     return render_template("welcome.html")
 
 
+@app.route("/signout")
+def signout():
+    flash("You've been signed out.")
+    session.pop("user")
+    return redirect(url_for("home"))
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
