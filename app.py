@@ -27,7 +27,7 @@ def home():
         if check_user:
             if check_password_hash(check_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
-                flash("Welcome")
+                flash("Welcome, {}!".format(check_user["firstname"]))
                 return redirect(url_for("home"))
             else:
                 flash("Incorrect username or password. Please try again.")
@@ -35,7 +35,12 @@ def home():
         else:
             flash("Incorrect username or password. Please try again.")
             return redirect(url_for("home"))
-    return render_template("welcome.html")
+    try:
+        if session["user"]:
+            # if logged in, take to the dashboard
+            return render_template("welcome.html")
+    except KeyError:
+        return render_template("welcome.html")
 
 
 @app.route("/signout")

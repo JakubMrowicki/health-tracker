@@ -27,3 +27,7 @@ $('#log-in-button').bind('click', function() {
 $('#back-button').bind('click', function() {
     backFunc();
 });
+
+$('#alert').bind('click', function() {
+    $(this).slideUp(150);
+});
