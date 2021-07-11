@@ -13,24 +13,55 @@
     <title>Health Tracker - Welcome</title>
 </head>
 <body>
-    <header class="container">
+    <header class="container welcome-container">
         <div class="row">
             <div class="col-md">
                 <h1 class="display-2 text-center">Health Tracker</h1>
                 <small class="d-block text-center">Keep a health diary. It's good for you! 
                     <a href="#">Learn more here!</a></small>
+                
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="row">
+                                <div id="alert" class="alert alert-warning my-2" role="alert">
+                                    {{ message }}
+                                  </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
             </div>
         </div>
-        <div class="row">
+        <div id="default" class="row">
             <div class="col-md">
                 <ul class="list-unstyled">
                     <li class="d-flex justify-content-center">
-                        <button id="sign-up-button" type="button" class="btn btn-secondary mt-2">Sign Up</button>
+                        <button id="sign-up-button" type="button" class="btn btn-secondary btn-lg mt-2">Sign Up</button>
                     </li>
                     <li class="d-flex justify-content-center">
-                        <button id="log-in-button" type="button" class="btn btn-outline-success my-2">Log In</button>
+                        <button id="log-in-button" type="button" class="btn btn-outline-success btn-lg my-2">Log In</button>
                     </li>
                 </ul>
+            </div>
+        </div>
+        <div id="login" class="row">
+            <div class="col-md">
+                <form>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password">
+                    </div>
+                    <div class="mb-3 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary btn-lg mx-1">Log In</button>
+                        <a id="back-button" class="btn btn-outline-secondary btn-lg mx-1">Back</a>
+                    </div>
+                </form>
             </div>
         </div>
     </header>

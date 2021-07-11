@@ -35,6 +35,14 @@ small {
 li button {
     width: 150px;
 }
+
+.welcome-container {
+    max-width: 500px;
+}
+
+#login {
+    display: none;
+}
 /*Overrides End*/
 
 
