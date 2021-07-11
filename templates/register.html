@@ -16,9 +16,8 @@
     <header class="container welcome-container">
         <div class="row">
             <div class="col-md">
-                <h1 class="display-2 text-center">Health Tracker</h1>
-                <small class="d-block text-center">Keep a health diary. It's good for you! 
-                    <a href="#">Learn more here!</a></small>
+                <h1 class="text-center">Register your account</h1>
+                <span class="d-block text-center">You're well on your way to starting your own health diary. Fill in your details below to get started!</span>
                 
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
@@ -36,30 +35,24 @@
         </div>
         <div id="default" class="row">
             <div class="col-md">
-                <ul class="list-unstyled">
-                    <li class="d-flex justify-content-center">
-                        <a href="{{ url_for('register') }}" id="sign-up-button" type="button" class="btn btn-secondary btn-lg mt-2">Sign Up</a>
-                    </li>
-                    <li class="d-flex justify-content-center">
-                        <a id="log-in-button" type="button" class="btn btn-outline-success btn-lg my-2">Log In</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div id="login" class="row">
-            <div class="col-md">
-                <form>
+                <form action="{{ url_for('register') }}" method="POST">
+                    <div class="mb-3">
+                        <label for="firstname" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstname"
+                            placeholder="What can we call you?">
+                    </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username">
+                        <input type="text" class="form-control" id="username"
+                            placeholder="Enter your username">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password">
+                        <input type="password" class="form-control" id="password"
+                            placeholder="Choose a password you'll remember">
                     </div>
                     <div class="mb-3 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary btn-lg mx-1">Log In</button>
-                        <a id="back-button" class="btn btn-outline-secondary btn-lg mx-1">Back</a>
+                        <button type="submit" class="btn btn-success">Register Your Account</button>
                     </div>
                 </form>
             </div>
