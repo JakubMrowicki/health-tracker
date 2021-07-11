@@ -22,12 +22,10 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def home():
-    test = list(mongo.db.users.find())
-    print(test)
-    return render_template("test.html", test=test)
+    return render_template("welcome.html")
 
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=True)
+            debug=True) #change at end to False

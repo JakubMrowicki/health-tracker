@@ -1,0 +1,58 @@
+/*Overrides Start*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /*Generated using cssmatic.com*/
+    background: #ededed;
+    background: -moz-radial-gradient(center, ellipse cover, #ededed 0%, #e3e3e3 67%, #d6d6d6 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #ededed), color-stop(67%, #e3e3e3), color-stop(100%, #d6d6d6));
+    background: -webkit-radial-gradient(center, ellipse cover, #ededed 0%, #e3e3e3 67%, #d6d6d6 100%);
+    background: -o-radial-gradient(center, ellipse cover, #ededed 0%, #e3e3e3 67%, #d6d6d6 100%);
+    background: -ms-radial-gradient(center, ellipse cover, #ededed 0%, #e3e3e3 67%, #d6d6d6 100%);
+    background: radial-gradient(ellipse at center, #ededed 0%, #e3e3e3 67%, #d6d6d6 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#d6d6d6', GradientType=1 );
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Roboto', sans-serif;
+}
+
+p,
+span,
+small {
+    font-family: 'Open Sans', sans-serif;
+}
+
+li button {
+    width: 150px;
+}
+/*Overrides End*/
+
+
+/*Media Queries*/
+@media screen and (min-height: 200px) {
+
+    /*Vertically Center Game If Screen Height > Game Height*/
+    body {
+        height: 100vh;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+}
