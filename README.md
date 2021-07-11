@@ -74,7 +74,7 @@ Below are some user stories which reveal how this website is useful for the end 
 
 ---
 ## Skeleton Plane
-Wireframes can be found [here](https://github.com/JakubMrowicki/health-tracker/blob/master/assets/docs/wireframes.pdf)
+Wireframes can be found [here](https://github.com/JakubMrowicki/health-tracker/blob/master/static/docs/wireframes.pdf)
 
 The footer will contain copyright information and some social media links.
 
