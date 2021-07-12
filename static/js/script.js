@@ -49,3 +49,11 @@ $('#details').bind('click', function() {
 $('#alert').bind('click', function() {
     $(this).slideUp(150);
 });
+
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    this.addEventListener('hide.bs.tooltip', function () {
+        new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+});
