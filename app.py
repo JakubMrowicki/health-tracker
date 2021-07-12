@@ -38,10 +38,13 @@ def home():
     try:
         if session["user"]:
             # if logged in, take to the dashboard
-            return render_template("feed.html")
+            return feed()
     except KeyError:
         return render_template("welcome.html")
 
+
+def feed():
+    return render_template("feed.html")
 
 @app.route("/signout")
 def signout():
