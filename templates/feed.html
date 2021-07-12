@@ -1,26 +1,58 @@
 {% extends "base.html" %}
 {% block content %}
+    {% if entries|length > 0 %}
     <h4>Pinned Entries</h4>
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="card-footer bg-transparent px-0">
-                    <div class="row">
-                        <div class="col-md d-flex justify-content-between">
-                            <small class="text-muted">Entry Date: 15-02-2021</small>
-                            <ul class="list-inline p-0">
-                                <li class="list-inline-item">
-                                    <small>Edit</small>
-                                </li>
-                                <li class="list-inline-item">
-                                    <small>Pin</small>
-                                </li>
-                            </ul>
+        {% for entry in entries %}
+            {% if entry.pinned == true %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ entry.title }}</h5>
+                        <p class="card-text">{{ entry.body }}</p>
+                        <div class="card-footer bg-transparent px-0">
+                            <div class="row">
+                                <div class="col-md d-flex justify-content-between">
+                                    <small class="text-muted">Entry Date: {{ entry.date }}</small>
+                                    <ul class="list-inline p-0">
+                                        <li class="list-inline-item">
+                                            <small>Edit</small>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <small>Unpin</small>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            {% endif %}
+        {% endfor %}
+        
     <h4>All Entries</h4>
+        {% for entry in entries %}
+            {% if entry.pinned == false %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ entry.title }}</h5>
+                        <p class="card-text">{{ entry.body }}</p>
+                        <div class="card-footer bg-transparent px-0">
+                            <div class="row">
+                                <div class="col-md d-flex justify-content-between">
+                                    <small class="text-muted">Entry Date: {{ entry.date }}</small>
+                                    <ul class="list-inline p-0">
+                                        <li class="list-inline-item">
+                                            <small>Edit</small>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <small>Pin</small>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 {% endblock%}
