@@ -76,8 +76,8 @@ def load():
 
     db = list(mongo.db.entries.find(
         {"user": session["user"],
-        "pinned": False}
-        ).sort("_id", -1))
+            "pinned": False}
+            ).sort("_id", -1))
     posts = len(db)
 
     for entry in db:
@@ -87,7 +87,8 @@ def load():
 
 
     if request.args:
-        counter = int(request.args.get("c"))  # The 'counter' value sent in the QS
+        # The 'counter' value sent in the QS
+        counter = int(request.args.get("c"))
 
         if counter == 0:
             print(f"Returning posts 0 to {quantity}")
@@ -178,7 +179,7 @@ def pin(entry_id):
         flash("You must be logged in to access this page.")
         return render_template("welcome.html")
     else:
-        entry = mongo.db.entries.find_one({"_id": ObjectId(entry_id)})
+        entry = mongo.db.entries.find_one_or_404({"_id": ObjectId(entry_id)})
         if entry["user"] == session["user"]:
             pinned_count = mongo.db.entries.find({
                 "user": entry["user"],
@@ -209,7 +210,7 @@ def delete(entry_id):
         flash("You must be logged in to access this page.")
         return render_template("welcome.html")
     else:
-        entry = mongo.db.entries.find_one({"_id": ObjectId(entry_id)})
+        entry = mongo.db.entries.find_one_or_404({"_id": ObjectId(entry_id)})
         if entry["user"] == session["user"]:
             if entry["pinned"]:
                 mongo.db.entries.delete_one(
@@ -222,6 +223,18 @@ def delete(entry_id):
         else:
             flash("You can only delete your own diary entries.")
             return redirect(url_for("home"))
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(500)
+def page_not_found(e):
+    # note that we set the 500 status explicitly
+    return render_template('500.html'), 500
 
 
 if __name__ == "__main__":
