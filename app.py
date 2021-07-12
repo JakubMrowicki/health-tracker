@@ -23,12 +23,14 @@ mongo = PyMongo(app)
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
-        check_user = mongo.db.users.find_one({"username": request.form.get("username").lower()})
+        check_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
         if check_user:
-            if check_password_hash(check_user["password"], request.form.get("password")):
-                session["user"] = request.form.get("username").lower()
-                flash("Welcome, {}!".format(check_user["firstname"]))
-                return redirect(url_for("home"))
+            if check_password_hash(
+                check_user["password"], request.form.get("password")):
+                    session["user"] = request.form.get("username").lower()
+                    flash("Welcome, {}!".format(check_user["firstname"]))
+                    return redirect(url_for("home"))
             else:
                 flash("Incorrect username or password. Please try again.")
                 return redirect(url_for("home"))
@@ -44,8 +46,8 @@ def home():
 
 
 def feed():
-    entries = list(mongo.db.entries.find({"user": session["user"]}).sort("timestamp", -1))
-    print(entries)
+    entries = list(mongo.db.entries.find(
+        {"user": session["user"]}).sort("timestamp", -1))
     return render_template("feed.html", entries=entries)
 
 @app.route("/signout")
@@ -58,7 +60,8 @@ def signout():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        username_check = mongo.db.users.find_one({"username": request.form.get("username").lower()})
+        username_check = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
         if username_check:
             flash("User already exists, try logging in instead.")
             return redirect(url_for("home"))
