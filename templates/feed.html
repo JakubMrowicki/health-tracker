@@ -27,8 +27,7 @@
     </div>
     {% if entries|length > 0 %}
     <h4>All Entries</h4>
-        {% for entry in entries %}
-            {% if entry.pinned == true %}
+        {% for entry in pinned_entries %}
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title"><i class="fas fa-thumbtack"></i> {{ entry.title }}</h5>
@@ -56,7 +55,6 @@
                         </div>
                     </div>
                 </div>
-            {% endif %}
         {% endfor %}
         
         {% for entry in entries %}

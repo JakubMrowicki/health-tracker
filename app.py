@@ -55,7 +55,18 @@ def feed():
     user_info = mongo.db.users.find_one({"username": session["user"]})
     entries = list(mongo.db.entries.find(
         {"user": session["user"]}).sort("_id", -1))
-    return render_template("feed.html", entries=entries, user=user_info)
+    pinned_entries = list(mongo.db.entries.find(
+        {
+            "user": session["user"],
+            "pinned": True
+        }
+    ).sort("_id", -1))
+    return render_template(
+        "feed.html",
+        pinned_entries=pinned_entries,
+        entries=entries,
+        user=user_info
+        )
 
 
 @app.route("/signout")
@@ -142,11 +153,13 @@ def pin(entry_id):
             else:
                 if entry["pinned"]:
                     mongo.db.entries.update_one(
-                        {"_id": ObjectId(entry_id)}, {"$set": {"pinned": False}})
+                        {"_id": ObjectId(entry_id)},
+                        {"$set": {"pinned": False}})
                     return redirect(url_for("home"))
                 else:
                     mongo.db.entries.update_one(
-                        {"_id": ObjectId(entry_id)}, {"$set": {"pinned": True}})
+                        {"_id": ObjectId(entry_id)},
+                        {"$set": {"pinned": True}})
                     return redirect(url_for("home"))
         else:
             flash("You can only pin your own diary entries.")
