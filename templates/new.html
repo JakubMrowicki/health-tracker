@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <h4 class="text-center pt-5">New Entry</h4>
+    <form action="{{ url_for('new') }}" method="post">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="title" id="title" placeholder="Title of your diary entry">
+            <label for="title">Title</label>
+          </div>
+          <div class="form-floating">
+            <textarea type="text" class="form-control" name="body" id="body" placeholder="Write your diary entry here" style="height: 100px" maxlength="500" required></textarea>
+            <label for="body">Body</label>
+          </div>
+    </form>
+{% endblock %}

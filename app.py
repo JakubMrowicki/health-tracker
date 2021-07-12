@@ -83,6 +83,11 @@ def register():
     return render_template("register.html")
 
 
+@app.route("/new", methods=["GET", "POST"])
+def new():
+    return render_template("new.html")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

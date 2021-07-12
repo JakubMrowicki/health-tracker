@@ -18,7 +18,12 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url_for('home') }}">Health Tracker</a>
                 <div class="d-flex justify-content-end">
-                    <button class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add a new entry"><i class="fas fa-plus-circle"></i></button>
+                    {% if request.endpoint == 'home' %}
+                        <a href="{{ url_for('new') }}" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add a new entry"><i class="fas fa-plus-circle"></i></a>
+                    {% else %}
+                        <a href="{{ url_for('home') }}" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Go back home"><i class="fas fa-home"></i></a>
+                    {% endif %}
+                    
                     <button class="btn btn-outline-secondary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search"><i class="fas fa-search"></i></button>
                     <a href="{{ url_for('signout') }}" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sign out"><i class="fas fa-sign-out-alt"></i></a>
                 </div>
