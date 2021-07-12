@@ -98,15 +98,15 @@ function loadItems() {
         let template_clone = template.content.cloneNode(true);
 
         host = window.location.hostname;
-        deleteUrl = host + "/delete/" + data[i]['_id'];
-        pinUrl = host + "/pin/" + data[i]['_id'];
+        deleteUrl = location.protocol + "//" + host + "/delete/" + data[i]['_id'];
+        pinUrl = location.protocol + "//" + host + "/pin/" + data[i]['_id'];
 
         // Query & update the template content
         template_clone.querySelector("#title").innerHTML = `${data[i]['title']}`;
         template_clone.querySelector("#body").innerHTML = data[i]['body'];
         template_clone.querySelector("#date").innerHTML = data[i]['date'];
-        template_clone.querySelector("#confirm-btn").setAttribute = ("href", deleteUrl);
-        template_clone.querySelector("#pin-btn").setAttribute = ("href", pinUrl);
+        template_clone.querySelector("#confirm-btn").setAttribute("href", deleteUrl);
+        template_clone.querySelector("#pin-btn").setAttribute("href", pinUrl);
 
         // Append template to dom
         scroller.appendChild(template_clone);

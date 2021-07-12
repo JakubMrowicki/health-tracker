@@ -86,7 +86,6 @@ def load():
     quantity = 5
 
 
-    print(db[0])
     if request.args:
         counter = int(request.args.get("c"))  # The 'counter' value sent in the QS
 
