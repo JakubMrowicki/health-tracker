@@ -162,6 +162,7 @@ This project is deployed to the public by using Heroku. This is how I did it.
 
 # 10: Credits & Acknowledgments
 * [koala_dev](http://jsfiddle.net/koala_dev/3v2egwfs/7/) for their chevron rotation solution.
+* [Raeesh Alam](https://stackoverflow.com/a/66288369) for their snippet for initialising Bootstrap Tooltips.
 
 ### Content
 * All written content is written by myself.
