@@ -44,7 +44,8 @@
                                             <small>Edit</small>
                                         </li>
                                         <li class="list-inline-item">
-                                            <small>Delete</small>
+                                            <small onclick="confirm(this)">Delete</small>
+                                            <small class="d-none"><a href="{{ url_for('delete', entry_id=entry._id) }}">Confirm</a></small>
                                         </li>
                                         <li class="list-inline-item">
                                             <small><a href="{{ url_for('pin', entry_id=entry._id) }}">Unpin</a></small>
@@ -76,7 +77,8 @@
                                             <small>Edit</small>
                                         </li>
                                         <li class="list-inline-item">
-                                            <small>Delete</small>
+                                            <small onclick="confirm(this)">Delete</small>
+                                            <small class="d-none"><a href="{{ url_for('delete', entry_id=entry._id) }}">Confirm</a></small>
                                         </li>
                                         <li class="list-inline-item">
                                             <small><a href="{{ url_for('pin', entry_id=entry._id) }}">Pin</a></small>

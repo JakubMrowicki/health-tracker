@@ -35,11 +35,10 @@ def home():
         check_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
         if check_user:
-            if check_password_hash(
-                check_user["password"], request.form.get("password")):
-                    session["user"] = request.form.get("username").lower()
-                    flash("Welcome, {}!".format(check_user["firstname"]))
-                    return redirect(url_for("home"))
+            if check_password_hash(check_user["password"], request.form.get("password")):
+                session["user"] = request.form.get("username").lower()
+                flash("Welcome, {}!".format(check_user["firstname"]))
+                return redirect(url_for("home"))
             else:
                 flash("Incorrect username or password. Please try again.")
                 return redirect(url_for("home"))
@@ -57,6 +56,7 @@ def feed():
     entries = list(mongo.db.entries.find(
         {"user": session["user"]}))
     return render_template("feed.html", entries=entries, user=user_info)
+
 
 @app.route("/signout")
 def signout():
@@ -102,7 +102,8 @@ def new():
     else:
         if request.method == "POST":
             current_time = datetime.now()
-            body = request.form.get("body") if len(request.form.get("body")) > 1 else None
+            body = request.form.get(
+                "body") if len(request.form.get("body")) > 1 else None
             pinned = True if request.form.get("pinned") == "pin" else False
             entry = {
                 "title": request.form.get("title"),
@@ -139,7 +140,28 @@ def pin(entry_id):
             return redirect(url_for("home"))
 
 
+@app.route("/delete/<entry_id>")
+def delete(entry_id):
+    if not isLogged():
+        flash("You must be logged in to access this page.")
+        return render_template("welcome.html")
+    else:
+        entry = mongo.db.entries.find_one({"_id": ObjectId(entry_id)})
+        if entry["user"] == session["user"]:
+            if entry["pinned"]:
+                mongo.db.entries.delete_one(
+                    {"_id": ObjectId(entry_id)})
+                return redirect(url_for("home"))
+            else:
+                mongo.db.entries.delete_one(
+                    {"_id": ObjectId(entry_id)})
+                return redirect(url_for("home"))
+        else:
+            flash("You can only delete your own diary entries.")
+            return redirect(url_for("home"))
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=True) #change at end to False
+            debug=True)  # change at end to False

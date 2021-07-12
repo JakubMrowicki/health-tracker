@@ -30,6 +30,10 @@ function profile(){
     }
 }
 
+function confirm(elem){
+    $(elem).toggleClass("d-none").next().toggleClass("d-none");
+}
+
 if($('#alert').length) {
     loginFunc(0);
 }
