@@ -1,5 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
+    <h2 id="details" class="mt-5">{{user.firstname}}'s Diary <i id="chevron" class="fas fa-chevron-right ms-1 rotate"></i></h2>
+    <div id="details-box" class="row">
+        <div class="col-md">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5>Bio:</h5>
+                    <p>
+                        {% if user.bio|length > 1 %}
+                            {{ user.bio }}
+                        {% else %}
+                            No bio available, consider editing your profile.
+                        {% endif %}
+                    </p>
+                    <h5>Known Allergies:</h5>
+                    <p>
+                        {% if user.bio|length > 1 %}
+                            {{ user.allergies }}
+                        {% else %}
+                            No known allergens.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
     {% if entries|length > 0 %}
     <h4>Pinned Entries</h4>
         {% for entry in entries %}

@@ -46,9 +46,10 @@ def home():
 
 
 def feed():
+    user_info = mongo.db.users.find_one({"username": session["user"]})
     entries = list(mongo.db.entries.find(
         {"user": session["user"]}).sort("timestamp", -1))
-    return render_template("feed.html", entries=entries)
+    return render_template("feed.html", entries=entries, user=user_info)
 
 @app.route("/signout")
 def signout():
