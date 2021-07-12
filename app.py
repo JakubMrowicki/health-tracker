@@ -54,7 +54,7 @@ def home():
 def feed():
     user_info = mongo.db.users.find_one({"username": session["user"]})
     entries = list(mongo.db.entries.find(
-        {"user": session["user"]}))
+        {"user": session["user"]}).sort("_id", -1))
     return render_template("feed.html", entries=entries, user=user_info)
 
 
@@ -100,11 +100,16 @@ def new():
         flash("You must be logged in to access this page.")
         return render_template("welcome.html")
     else:
+        pinned_count = list(mongo.db.entries.find({
+                "user": session["user"],
+                "pinned": True
+            }))
         if request.method == "POST":
             current_time = datetime.now()
             body = request.form.get(
                 "body") if len(request.form.get("body")) > 1 else None
-            pinned = True if request.form.get("pinned") == "pin" else False
+            pinned = True if request.form.get("pinned") == "pin" and len(
+                pinned_count) < 5 else False
             entry = {
                 "title": request.form.get("title"),
                 "body": body,
@@ -116,7 +121,7 @@ def new():
             mongo.db.entries.insert_one(entry)
             flash("Your entry has been added!")
             return redirect(url_for("home"))
-        return render_template("new.html")
+        return render_template("new.html", pinned_count=pinned_count)
 
 
 @app.route("/pin/<entry_id>")

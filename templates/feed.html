@@ -27,7 +27,7 @@
     </div>
     {% if entries|length > 0 %}
     <h4>All Entries</h4>
-        {% for entry in entries | reverse %}
+        {% for entry in entries %}
             {% if entry.pinned == true %}
                 <div class="card mb-3">
                     <div class="card-body">
@@ -59,7 +59,7 @@
             {% endif %}
         {% endfor %}
         
-        {% for entry in entries | reverse %}
+        {% for entry in entries %}
             {% if entry.pinned == false %}
                 <div class="card mb-3">
                     <div class="card-body">
