@@ -127,14 +127,22 @@ def pin(entry_id):
     else:
         entry = mongo.db.entries.find_one({"_id": ObjectId(entry_id)})
         if entry["user"] == session["user"]:
-            if entry["pinned"]:
-                mongo.db.entries.update_one(
-                    {"_id": ObjectId(entry_id)}, {"$set": {"pinned": False}})
+            pinned_count = mongo.db.entries.find({
+                "user": entry["user"],
+                "pinned": True
+            })
+            if len(list(pinned_count)) >= 5:
+                flash("You can only pin 5 diary entries at a time. Try unpinning some old entries to make room.")
                 return redirect(url_for("home"))
             else:
-                mongo.db.entries.update_one(
-                    {"_id": ObjectId(entry_id)}, {"$set": {"pinned": True}})
-                return redirect(url_for("home"))
+                if entry["pinned"]:
+                    mongo.db.entries.update_one(
+                        {"_id": ObjectId(entry_id)}, {"$set": {"pinned": False}})
+                    return redirect(url_for("home"))
+                else:
+                    mongo.db.entries.update_one(
+                        {"_id": ObjectId(entry_id)}, {"$set": {"pinned": True}})
+                    return redirect(url_for("home"))
         else:
             flash("You can only pin your own diary entries.")
             return redirect(url_for("home"))
