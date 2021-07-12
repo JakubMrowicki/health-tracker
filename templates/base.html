@@ -21,7 +21,7 @@
                     {% if request.endpoint == 'home' %}
                         <a href="{{ url_for('new') }}" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add a new entry"><i class="fas fa-plus-circle"></i></a>
                     {% else %}
-                        <a href="{{ url_for('home') }}" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Go back home"><i class="fas fa-home"></i></a>
+                        <a href="{{ url_for('home') }}" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Home"><i class="fas fa-home"></i></a>
                     {% endif %}
                     
                     <button class="btn btn-outline-secondary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search"><i class="fas fa-search"></i></button>

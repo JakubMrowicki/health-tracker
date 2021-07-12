@@ -27,12 +27,14 @@
     </div>
     {% if entries|length > 0 %}
     <h4>Pinned Entries</h4>
-        {% for entry in entries %}
+        {% for entry in entries | reverse %}
             {% if entry.pinned == true %}
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title">{{ entry.title }}</h5>
-                        <p class="card-text">{{ entry.body }}</p>
+                        {% if entry.body != None %}
+                            <p class="card-text">{{ entry.body }}</p>
+                        {% endif %}
                         <div class="card-footer bg-transparent px-0">
                             <div class="row">
                                 <div class="col-md d-flex justify-content-between">
@@ -54,12 +56,14 @@
         {% endfor %}
         
     <h4>All Entries</h4>
-        {% for entry in entries %}
+        {% for entry in entries | reverse %}
             {% if entry.pinned == false %}
                 <div class="card mb-3">
                     <div class="card-body">
                         <h5 class="card-title">{{ entry.title }}</h5>
-                        <p class="card-text">{{ entry.body }}</p>
+                        {% if entry.body != None %}
+                            <p class="card-text">{{ entry.body }}</p>
+                        {% endif %}
                         <div class="card-footer bg-transparent px-0">
                             <div class="row">
                                 <div class="col-md d-flex justify-content-between">
