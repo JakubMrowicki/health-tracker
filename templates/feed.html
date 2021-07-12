@@ -44,7 +44,10 @@
                                             <small>Edit</small>
                                         </li>
                                         <li class="list-inline-item">
-                                            <small>Unpin</small>
+                                            <small>Delete</small>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <small><a href="{{ url_for('pin', entry_id=entry._id) }}">Unpin</a></small>
                                         </li>
                                     </ul>
                                 </div>
@@ -73,7 +76,10 @@
                                             <small>Edit</small>
                                         </li>
                                         <li class="list-inline-item">
-                                            <small>Pin</small>
+                                            <small>Delete</small>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <small><a href="{{ url_for('pin', entry_id=entry._id) }}">Pin</a></small>
                                         </li>
                                     </ul>
                                 </div>

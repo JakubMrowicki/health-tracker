@@ -118,6 +118,24 @@ def new():
         return render_template("new.html")
 
 
+@app.route("/pin/<entry_id>")
+def pin(entry_id):
+    if not isLogged():
+        flash("You must be logged in to access this page.")
+        return render_template("welcome.html")
+    else:
+        entry = mongo.db.entries.find_one({"_id": ObjectId(entry_id)})
+        if entry["pinned"]:
+            mongo.db.entries.update_one(
+                {"_id": ObjectId(entry_id)}, {"$set": {"pinned": False}})
+            return redirect(url_for("home"))
+        else:
+            mongo.db.entries.update_one(
+                {"_id": ObjectId(entry_id)}, {"$set": {"pinned": True}})
+            return redirect(url_for("home"))
+
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
