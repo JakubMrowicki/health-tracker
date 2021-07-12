@@ -130,6 +130,7 @@ This project uses the following technologies:
 * Ran style.css through [Autoprefixer](https://autoprefixer.github.io/) to add vendor prefixes.
 * Used [Color Contrast Accessibility Validator](https://color.a11y.com/Contrast/) to check for Colour Contrast issues.
 * Checked and fixed any typos and grammar issues that I could find by using a [Chrome Extension called Webpage Spell-Check](https://chrome.google.com/webstore/detail/webpage-spell-check/mgdhaoimpabdhmacaclbbjddhngchjik).
+* Tested the register and log in function to ensure it's working correctly on desktop, mobile and the Heroku deployment version.
 
 # 7: Problem Areas & Solutions
 * My friends were not sure if the game was active or not when I showed them.
