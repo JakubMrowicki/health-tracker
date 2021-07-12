@@ -70,7 +70,7 @@ def register():
 
         session["user"] = request.form.get("username").lower()
         flash("You're in!")
-        return redirect(url_for("feed.html"))
+        return redirect(url_for("home"))
     return render_template("register.html")
 
 
