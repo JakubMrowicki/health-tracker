@@ -38,25 +38,26 @@
             <div class="col-md">
                 <form action="{{ url_for('register') }}" method="POST">
                     <div class="mb-3">
-                        <label for="firstname" class="form-label">First Name</label>
+                        <label for="firstname" class="form-label">First Name<sup>*</sup></label>
                         <input type="text" class="form-control" id="firstname"
                             name="firstname" placeholder="What can we call you?"
                             pattern="^[a-zA-Z]{2,10}$" minlength="2" maxlength="10" required>
                     </div>
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
+                        <label for="username" class="form-label">Username<sup>*</sup></label>
                         <input type="text" class="form-control" id="username"
                             name="username" placeholder="Enter your username"
                             minlength="2" maxlength="15" pattern="^[a-zA-Z0-9]{2,15}$" required>
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label">Password<sup>*</sup></label>
                         <input type="password" class="form-control" id="password"
                             name="password" placeholder="Choose a password you'll remember" 
                             minlength="6" required>
                     </div>
                     <div class="mb-3 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-success">Register Your Account</button>
+                        <a href="{{ url_for('home') }}" class="btn btn-outline-secondary mx-1">Back</a>
+                        <button type="submit" class="btn btn-success mx-1">Register Your Account</button>
                     </div>
                 </form>
             </div>

@@ -38,7 +38,7 @@ def home():
     try:
         if session["user"]:
             # if logged in, take to the dashboard
-            return render_template("welcome.html")
+            return render_template("feed.html")
     except KeyError:
         return render_template("welcome.html")
 
@@ -70,7 +70,7 @@ def register():
 
         session["user"] = request.form.get("username").lower()
         flash("You're in!")
-        return redirect(url_for("register"))
+        return redirect(url_for("feed.html"))
     return render_template("register.html")
 
 
