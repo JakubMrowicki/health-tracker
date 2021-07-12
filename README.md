@@ -161,7 +161,7 @@ This project is deployed to the public by using Heroku. This is how I did it.
 [View On Heroku](https://jakubmrowicki.github.io/memory-keypad/)
 
 # 10: Credits & Acknowledgments
-* 
+* [koala_dev](http://jsfiddle.net/koala_dev/3v2egwfs/7/) for their chevron rotation solution.
 
 ### Content
 * All written content is written by myself.
