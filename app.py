@@ -136,7 +136,7 @@ def pin(entry_id):
                 "user": entry["user"],
                 "pinned": True
             })
-            if len(list(pinned_count)) >= 5:
+            if len(list(pinned_count)) >= 5 and not entry["pinned"]:
                 flash("You can only pin 5 diary entries at a time. Try unpinning some old entries to make room.")
                 return redirect(url_for("home"))
             else:
