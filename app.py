@@ -260,6 +260,20 @@ def edit(entry_id):
             abort(400)
 
 
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    if request.method == "POST" and is_logged():
+        query = request.form.get("query")
+        entries = list(mongo.db.entries.find(
+            {
+                "$text": {"$search": query},
+                "user": session["user"]
+            }).sort("_id", -1).limit(10))
+        return render_template("search.html", entries=entries)
+    else:
+        abort(404)
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     # handle a page not found error

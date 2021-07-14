@@ -35,7 +35,6 @@ function profile() {
 function confirm(id) {
     $('#deleteModal').modal('show');
     $('#confirmFinal').attr('href', host + "/delete/" + id)
-    console.log(id);
 }
 
 function newEntry() {
