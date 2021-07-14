@@ -5,7 +5,6 @@ from flask import (
     jsonify, make_response, abort)
 from flask_pymongo import PyMongo
 from datetime import datetime
-import time
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
@@ -229,9 +228,9 @@ def edit(entry_id):
         if is_object_id_valid(entry_id):
             if entry["user"] == session["user"]:
                 entry['_id'] = str(entry['_id'])
-                entry['pin_allowed'] = True if entry['pinned'] or len(pinned_count) < 5 else False
+                entry['pin_allowed'] = True if entry['pinned'] or len(
+                    pinned_count) < 5 else False
                 res = make_response(jsonify(entry), 200)
-                time.sleep(0.5)  # remove
                 return res
             else:
                 abort(400)

@@ -69,9 +69,6 @@ li a {
     transform:rotate(90deg);
 }
 
-#editForm {
-    display: none;
-}
 /* Custom Elements End */
 
 /*Media Queries*/

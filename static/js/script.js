@@ -1,3 +1,5 @@
+let host = location.protocol + "//" + window.location.hostname;
+
 function backFunc(duration = 150){
     $('#login').slideUp( duration, function() {
         // Animation complete.
@@ -30,8 +32,10 @@ function profile(){
     }
 }
 
-function confirm(elem){
-    $(elem).toggleClass("d-none").next().toggleClass("d-none");
+function confirm(id){
+    $('#deleteModal').modal('show');
+    $('#confirmFinal').attr('href', host + "/delete/" + id)
+    console.log(id);
 }
 
 if($('#alert').length) {
@@ -75,16 +79,6 @@ function edit(id) {
     let type = $('#edit-type');
     let pinned = $('#edit-pinned');
     let form = $('#editForm');
-    let loader = $('#spinner');
-
-    if(!loader.hasClass('my-5')) {
-        loader.toggleClass('my-5');
-        loader.show(10);
-        loader.children().show(10);
-        form.hide(10);
-    }
-    
-    $('#editModal').modal('show');
 
     fetch(`/edit/${id}`).then((response) => {
         response.json().then((data) => {
@@ -110,10 +104,7 @@ function edit(id) {
                 initTooltips();
             }
 
-            loader.toggleClass('my-5');
-            loader.slideUp(150);
-            loader.children().slideUp(150);
-            form.slideDown(150);
+            $('#editModal').modal('show');
         })
     })
 }
@@ -156,15 +147,13 @@ if ($('#feed-header').length) {
                     // Clone the HTML template
                     let template_clone = template.content.cloneNode(true);
 
-                    host = location.protocol + "//" + window.location.hostname;
-                    deleteUrl = host + "/delete/" + data[i]['_id'];
-                    pinUrl = host + "/pin/" + data[i]['_id'];
+                    let pinUrl = host + "/pin/" + data[i]['_id'];
 
                     // Query & update the template content
                     template_clone.querySelector("#title").innerHTML = data[i]['title'];
                     template_clone.querySelector("#body").innerHTML = data[i]['body'];
                     template_clone.querySelector("#date").innerHTML = data[i]['date'];
-                    template_clone.querySelector("#confirm-btn").setAttribute("href", deleteUrl);
+                    template_clone.querySelector("#delete-btn").setAttribute("onclick", "confirm('" + data[i]['_id'] + "')");
                     template_clone.querySelector("#pin-btn").setAttribute("href", pinUrl);
                     template_clone.querySelector("#edit-btn").setAttribute("onclick", "edit('" + data[i]['_id'] + "')");
 
