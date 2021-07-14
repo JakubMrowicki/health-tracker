@@ -1,1 +1,9 @@
-big woops
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md text-center my-5">
+        <h1><i class="fas fa-exclamation-circle"></i> 500 Internal Server Error</h1>
+        <p>Oh boy, something is seriously wrong, let's take you <a href="{{ url_for('home') }}">Home</a>.</p>
+    </div>
+</div>
+{% endblock %}

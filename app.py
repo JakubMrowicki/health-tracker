@@ -2,7 +2,7 @@ import os
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for,
-    jsonify, make_response)
+    jsonify, make_response, abort)
 from flask_pymongo import PyMongo
 from datetime import datetime
 from bson.objectid import ObjectId
@@ -85,8 +85,13 @@ def load():
 
     quantity = 5
 
-
     if request.args:
+        try:
+            if int(request.args.get("c")):
+                pass
+        except ValueError:
+            abort(400)
+
         # The 'counter' value sent in the QS
         counter = int(request.args.get("c"))
 
@@ -103,7 +108,8 @@ def load():
             print(f"Returning posts {counter} to {counter + quantity}")
             # Slice counter -> quantity from the db
             res = make_response(jsonify(db[counter: counter + quantity]), 200)
-
+    else: 
+        return abort(404)
     return res
 
 
@@ -227,17 +233,26 @@ def delete(entry_id):
 
 @app.errorhandler(404)
 def page_not_found(e):
-    # note that we set the 404 status explicitly
-    return render_template('404.html'), 404
+    # handle a page not found error
+    return render_template("404.html"), 404
 
 
 @app.errorhandler(500)
-def page_not_found(e):
-    # note that we set the 500 status explicitly
-    return render_template('500.html'), 500
+def internal_server(e):
+    # handle a server error.
+    return render_template("500.html"), 500
+
+
+@app.errorhandler(400)
+def handle_bad_request(e):
+    # handle a bad request.
+    return render_template("400.html"), 400
 
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
             debug=True)  # change at end to False
+    app.register_error_handler(404, page_not_found)
+    app.register_error_handler(500, internal_server)
+    app.register_error_handler(400, handle_bad_request)
