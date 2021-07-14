@@ -5,6 +5,7 @@ from flask import (
     jsonify, make_response, abort)
 from flask_pymongo import PyMongo
 from datetime import datetime
+import time
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
@@ -30,7 +31,6 @@ def home():
         if check_user:
             if check_password_hash(check_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
-                print(check_user["firstname"])  # remove
                 flash("Welcome, {}!".format(check_user["firstname"]))
                 return redirect(url_for("home"))
             else:
@@ -218,6 +218,49 @@ def delete(entry_id):
             return redirect(url_for("home"))
 
 
+@app.route("/edit/<entry_id>", methods=["GET", "POST"])
+def edit(entry_id):
+    entry = mongo.db.entries.find_one_or_404({"_id": ObjectId(entry_id)})
+    pinned_count = list(mongo.db.entries.find({
+                    "user": entry["user"],
+                    "pinned": True
+                }))
+    if request.method == "GET":
+        if is_object_id_valid(entry_id):
+            if entry["user"] == session["user"]:
+                entry['_id'] = str(entry['_id'])
+                entry['pin_allowed'] = True if entry['pinned'] or len(pinned_count) < 5 else False
+                res = make_response(jsonify(entry), 200)
+                time.sleep(0.5)  # remove
+                return res
+            else:
+                abort(400)
+        else:
+            abort(400)
+    if request.method == "POST":
+        if is_object_id_valid(entry_id):
+            if entry["user"] == session["user"]:
+                pinned = True if request.form.get("pinned") == "pin" and (len(
+                    pinned_count) < 5 or entry["pinned"] is True) else False
+                mongo.db.entries.update_one(
+                        {
+                            "_id": ObjectId(entry_id)
+                        },
+                        {"$set": {
+                            "_id": ObjectId(entry_id),
+                            "title": request.form.get("title"),
+                            "body": request.form.get("body"),
+                            "type": request.form.get("type"),
+                            "pinned": pinned
+                        }})
+                flash("Entry updated.")
+                return redirect(url_for("home"))
+            else:
+                abort(400)
+        else:
+            abort(400)
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     # handle a page not found error
@@ -237,11 +280,17 @@ def handle_bad_request(e):
 
 
 def isLogged():
+    # check if user is signed in.
     try:
         if session["user"]:
             return True
     except KeyError:
         return False
+
+
+def is_object_id_valid(id_value):
+    # validate is the id_value is a valid ObjectId
+    return id_value != "" and ObjectId.is_valid(id_value)
 
 
 if __name__ == "__main__":

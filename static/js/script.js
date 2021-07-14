@@ -54,14 +54,69 @@ $('#alert').bind('click', function() {
     $(this).slideUp(150);
 });
 
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+function initTooltips() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     this.addEventListener('hide.bs.tooltip', function () {
         new bootstrap.Tooltip(tooltipTriggerEl)
     })
     return new bootstrap.Tooltip(tooltipTriggerEl)
 });
+}
+initTooltips();
 
+/*
+Edit Modal
+*/
+
+function edit(id) {
+    let title = $('#edit-title');
+    let body = $('#edit-body');
+    let type = $('#edit-type');
+    let pinned = $('#edit-pinned');
+    let form = $('#editForm');
+    let loader = $('#spinner');
+
+    if(!loader.hasClass('my-5')) {
+        loader.toggleClass('my-5');
+        loader.show(10);
+        loader.children().show(10);
+        form.hide(10);
+    }
+    
+    $('#editModal').modal('show');
+
+    fetch(`/edit/${id}`).then((response) => {
+        response.json().then((data) => {
+            if(!data.length) {
+                console.log("Error, no data.");
+            }
+            console.log(data);
+            title.val(data['title']);
+            body.val(data['body']);
+            type.val(data['type']);
+            if(data['pinned'] == true) {
+                pinned.prop('checked', true);
+            } else {
+                pinned.prop('checked', false);
+            }
+            form.prop('action', "/edit/" + data['_id'])
+
+            if(!data['pin_allowed']) {
+                pinned.prop('disabled', true);
+                $('#pinAllow').attr('data-bs-toggle', 'tooltip');
+                $('#pinAllow').attr('data-bs-placement', 'bottom');
+                $('#pinAllow').attr('title', 'Maximum pins limit reached.');
+                initTooltips();
+            }
+
+            loader.toggleClass('my-5');
+            loader.slideUp(150);
+            loader.children().slideUp(150);
+            form.slideDown(150);
+        })
+    })
+}
 
 /*
 Lazy loading for diary entries.
@@ -106,11 +161,12 @@ if ($('#feed-header').length) {
                     pinUrl = host + "/pin/" + data[i]['_id'];
 
                     // Query & update the template content
-                    template_clone.querySelector("#title").innerHTML = `${data[i]['title']}`;
+                    template_clone.querySelector("#title").innerHTML = data[i]['title'];
                     template_clone.querySelector("#body").innerHTML = data[i]['body'];
                     template_clone.querySelector("#date").innerHTML = data[i]['date'];
                     template_clone.querySelector("#confirm-btn").setAttribute("href", deleteUrl);
                     template_clone.querySelector("#pin-btn").setAttribute("href", pinUrl);
+                    template_clone.querySelector("#edit-btn").setAttribute("onclick", "edit('" + data[i]['_id'] + "')");
 
                     // Append template to dom
                     scroller.appendChild(template_clone);

@@ -68,6 +68,10 @@ li a {
     -webkit-transform:rotate(90deg);
     transform:rotate(90deg);
 }
+
+#editForm {
+    display: none;
+}
 /* Custom Elements End */
 
 /*Media Queries*/
