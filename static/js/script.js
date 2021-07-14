@@ -88,7 +88,6 @@ if ($('#feed-header').length) {
             response.json().then((data) => {
 
                 // If empty JSON, exit the function
-                console.log(data);
                 if (!data.length) {
 
                     // Replace the spinner with "No more posts"
@@ -142,7 +141,6 @@ if ($('#feed-header').length) {
 
         // Call the loadItems function
         loadItems();
-        console.log("Trying to load something");
     });
 
     // Instruct the IntersectionObserver to watch the sentinel

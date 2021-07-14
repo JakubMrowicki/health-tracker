@@ -50,16 +50,14 @@ li a {
 /*Overrides End*/
 
 /* Custom Elements Start */
-#chevron {
-    font-size: 1rem;
-    vertical-align: middle;
-}
 
 #details-box {
     display: none;
 }
 
 .rotate {
+    font-size: 1rem;
+    vertical-align: middle;
     -moz-transition: all 0.15s ease-in;
     -webkit-transition: all 0.15s ease-in;
     transition: all 0.15s ease-in;

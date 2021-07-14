@@ -22,14 +22,6 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
-def isLogged():
-    try:
-        if session["user"]:
-            return True
-    except KeyError:
-        return False
-
-
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
@@ -38,6 +30,7 @@ def home():
         if check_user:
             if check_password_hash(check_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
+                print(check_user["firstname"])  # remove
                 flash("Welcome, {}!".format(check_user["firstname"]))
                 return redirect(url_for("home"))
             else:
@@ -78,7 +71,6 @@ def load():
         {"user": session["user"],
             "pinned": False}
             ).sort("_id", -1))
-    posts = len(db)
 
     for entry in db:
         entry['_id'] = str(entry['_id'])
@@ -96,19 +88,14 @@ def load():
         counter = int(request.args.get("c"))
 
         if counter == 0:
-            print(f"Returning posts 0 to {quantity}")
             # Slice 0 -> quantity from the db
             res = make_response(jsonify(db[0: quantity]), 200)
-
-        elif counter == posts:
-            print("No more posts")
+        elif counter == len(db):
             res = make_response(jsonify({}), 200)
-
         else:
-            print(f"Returning posts {counter} to {counter + quantity}")
             # Slice counter -> quantity from the db
             res = make_response(jsonify(db[counter: counter + quantity]), 200)
-    else: 
+    else:
         return abort(404)
     return res
 
@@ -247,6 +234,14 @@ def internal_server(e):
 def handle_bad_request(e):
     # handle a bad request.
     return render_template("400.html"), 400
+
+
+def isLogged():
+    try:
+        if session["user"]:
+            return True
+    except KeyError:
+        return False
 
 
 if __name__ == "__main__":
