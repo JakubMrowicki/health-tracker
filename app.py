@@ -167,6 +167,8 @@ def new():
 
 @app.route("/pin/<entry_id>")
 def pin(entry_id):
+    if not is_object_id_valid(entry_id):
+        abort(400)
     if not is_logged():
         flash("You must be logged in to access this page.", "error")
         return render_template("welcome.html")
@@ -198,6 +200,8 @@ def pin(entry_id):
 
 @app.route("/delete/<entry_id>")
 def delete(entry_id):
+    if not is_object_id_valid(entry_id):
+        abort(400)
     if not is_logged():
         flash("You must be logged in to access this page.", "error")
         return render_template("welcome.html")
@@ -219,21 +223,20 @@ def delete(entry_id):
 
 @app.route("/edit/<entry_id>", methods=["GET", "POST"])
 def edit(entry_id):
+    if not is_object_id_valid(entry_id):
+        abort(400)
     entry = mongo.db.entries.find_one_or_404({"_id": ObjectId(entry_id)})
     pinned_count = list(mongo.db.entries.find({
                     "user": entry["user"],
                     "pinned": True
                 }))
     if request.method == "GET":
-        if is_object_id_valid(entry_id):
-            if entry["user"] == session["user"]:
-                entry['_id'] = str(entry['_id'])
-                entry['pin_allowed'] = True if entry['pinned'] or len(
-                    pinned_count) < 5 else False
-                res = make_response(jsonify(entry), 200)
-                return res
-            else:
-                abort(400)
+        if entry["user"] == session["user"]:
+            entry['_id'] = str(entry['_id'])
+            entry['pin_allowed'] = True if entry['pinned'] or len(
+                pinned_count) < 5 else False
+            res = make_response(jsonify(entry), 200)
+            return res
         else:
             abort(400)
     if request.method == "POST":
@@ -277,19 +280,31 @@ def search():
 @app.errorhandler(404)
 def page_not_found(e):
     # handle a page not found error
-    return render_template("404.html"), 404
+    if is_logged():
+        return render_template("404.html"), 404
+    else:
+        flash("Error: 404 Page Not Found.", "error")
+        return redirect(url_for('home'))
 
 
 @app.errorhandler(500)
 def internal_server(e):
     # handle a server error.
-    return render_template("500.html"), 500
+    if is_logged():
+        return render_template("500.html"), 500
+    else:
+        flash("Error: 500 Internal Server Error.", "error")
+        return redirect(url_for('home'))
 
 
 @app.errorhandler(400)
 def handle_bad_request(e):
     # handle a bad request.
-    return render_template("400.html"), 400
+    if is_logged():
+        return render_template("400.html"), 400
+    else:
+        flash("Error: 400 Bad Request.", "error")
+        return redirect(url_for('home'))
 
 
 def is_logged():
