@@ -70,6 +70,10 @@ li a {
     display: none;
 }
 
+#search-box2 {
+    display: none;
+}
+
 .rotate {
     font-size: 1rem;
     vertical-align: middle;

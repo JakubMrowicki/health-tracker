@@ -21,6 +21,10 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+# Contant Values
+TITLE_LIMIT = 70
+BODY_LIMIT = 200
+
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -147,8 +151,17 @@ def new():
             }))
         if request.method == "POST":
             current_time = datetime.now()
+
+            # check if title and body exceed character limits
+            if len(request.form.get("title")) > TITLE_LIMIT or len(request.form.get("body")) > BODY_LIMIT:
+                flash("Your title or body is too long.", "warning")
+                return redirect(url_for("home"))
+
+            # check if body is present
             body = request.form.get(
                 "body") if len(request.form.get("body")) > 1 else None
+
+            # check if post is to be pinned
             pinned = True if request.form.get("pinned") == "pin" and len(
                 pinned_count) < 5 else False
             entry = {
@@ -242,6 +255,11 @@ def edit(entry_id):
     if request.method == "POST":
         if is_object_id_valid(entry_id):
             if entry["user"] == session["user"]:
+                # check if title and body exceed character limits
+                if len(entry["title"]) > TITLE_LIMIT or len(entry["body"]) > BODY_LIMIT:
+                    flash("Your title or body is too long.", "warning")
+                    return redirect(url_for("home"))
+                # check if entry is to be pinned
                 pinned = True if request.form.get("pinned") == "pin" and (len(
                     pinned_count) < 5 or entry["pinned"] is True) else False
                 mongo.db.entries.update_one(

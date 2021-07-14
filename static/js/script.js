@@ -57,6 +57,19 @@ if($('#alert').length) {
     loginFunc(0);
 }
 
+$('#search-btn').bind('click', function(e) {
+    if ($(window).width() <=  768) {
+        e.preventDefault();
+        $(".tooltip").tooltip("hide");
+        $('#search-box2').slideToggle( 150, function() {
+            // Animation complete.
+            if ($('#search-box2').css('display') == 'block') {
+                $('#mquery').focus();
+            }
+        });
+    }
+});
+
 $('#log-in-button').bind('click', function() {
     loginFunc();
 });
