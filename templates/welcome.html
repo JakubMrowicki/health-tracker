@@ -43,13 +43,13 @@
                     {% if messages %}
                         {% for category, message in messages %}
                             <div class="row">
-                                {% if category == "error" %}
+                                {%- if category == "error" -%}
                                     <div id="alert" class="alert alert-danger my-2" role="alert">
-                                {% elif category == "warning" %}
+                                {%- elif category == "warning" -%}
                                     <div id="alert" class="alert alert-warning my-2" role="alert">
-                                {% elif category == "success" %}
+                                {%- elif category == "success" -%}
                                     <div id="alert" class="alert alert-success my-2" role="alert">
-                                {% endif %}
+                                {%- endif -%}
                                     {{ message }}
                                 </div>
                             </div>
