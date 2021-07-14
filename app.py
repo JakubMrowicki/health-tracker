@@ -25,7 +25,7 @@ mongo = PyMongo(app)
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
-        check_user = mongo.db.users.find_one(
+        check_user = mongo.db.users.find_one_or_404(
             {"username": request.form.get("username").lower()})
         if check_user:
             if check_password_hash(check_user["password"], request.form.get("password")):
@@ -38,14 +38,14 @@ def home():
         else:
             flash("Incorrect username or password. Please try again.")
             return redirect(url_for("home"))
-    if not isLogged():
+    if not is_logged():
         return render_template("welcome.html")
     else:
         return feed()
 
 
 def feed():
-    user_info = mongo.db.users.find_one({"username": session["user"]})
+    user_info = mongo.db.users.find_one_or_404({"username": session["user"]})
     entries = list(mongo.db.entries.find(
         {"user": session["user"]}).sort("_id", -1))
     pinned_entries = list(mongo.db.entries.find(
@@ -101,7 +101,7 @@ def load():
 
 @app.route("/signout")
 def signout():
-    if not isLogged():
+    if not is_logged():
         flash("You must be logged in to access this page.")
         return render_template("welcome.html")
     else:
@@ -113,7 +113,7 @@ def signout():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        username_check = mongo.db.users.find_one(
+        username_check = mongo.db.users.find_one_or_404(
             {"username": request.form.get("username").lower()})
         if username_check:
             flash("User already exists, try logging in instead.")
@@ -137,7 +137,7 @@ def register():
 
 @app.route("/new", methods=["GET", "POST"])
 def new():
-    if not isLogged():
+    if not is_logged():
         flash("You must be logged in to access this page.")
         return render_template("welcome.html")
     else:
@@ -162,12 +162,12 @@ def new():
             mongo.db.entries.insert_one(entry)
             flash("Your entry has been added!")
             return redirect(url_for("home"))
-        return render_template("new.html", pinned_count=pinned_count)
+    return abort(404)
 
 
 @app.route("/pin/<entry_id>")
 def pin(entry_id):
-    if not isLogged():
+    if not is_logged():
         flash("You must be logged in to access this page.")
         return render_template("welcome.html")
     else:
@@ -198,7 +198,7 @@ def pin(entry_id):
 
 @app.route("/delete/<entry_id>")
 def delete(entry_id):
-    if not isLogged():
+    if not is_logged():
         flash("You must be logged in to access this page.")
         return render_template("welcome.html")
     else:
@@ -278,7 +278,7 @@ def handle_bad_request(e):
     return render_template("400.html"), 400
 
 
-def isLogged():
+def is_logged():
     # check if user is signed in.
     try:
         if session["user"]:
@@ -290,6 +290,19 @@ def isLogged():
 def is_object_id_valid(id_value):
     # validate is the id_value is a valid ObjectId
     return id_value != "" and ObjectId.is_valid(id_value)
+
+
+@app.route("/check_pins")
+def check_pins():
+    # check for number of pinned entries and return the number.
+    if is_logged():
+        pinned_count = list(mongo.db.entries.find({
+                "user": session["user"],
+                "pinned": True
+            }))
+        return str(len(pinned_count))
+    else:
+        abort(400)
 
 
 if __name__ == "__main__":

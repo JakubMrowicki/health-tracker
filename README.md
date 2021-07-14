@@ -2,7 +2,7 @@
 
 ![AmIResponsive]()
 
-[View Project on Heroku](https://jakubmrowicki.github.io/memory-keypad/)
+[View Project on Heroku](http://health-diary-tracker.herokuapp.com/)
 
 
 The goal of this project is to create an __easy to use health and well-being tracker__. Add entries to keep track of your prescriptions, doctor's advice, appointments and more.
@@ -138,6 +138,8 @@ This project uses the following technologies:
     * __Solution:__ I added a glow to the keypad keys to let users know the game is started.
 * You could pin more than 5 entries if you pinned it upon creation with 5 pins already present.
     * __Solution:__ I added a check in the backend to prevent this from happening, even if you get rid of the disabled attribute on the checkbox using inspect element.
+* Heroku deployed version of the app wouldn't connect to the database even with the same vars.
+    * __Solution:__ I noticed that they were in a different order when compared to my env file, so rearranging them solved the issue.
 
 # 8: Code Validation
 HTML was Validated using the [W3 Validator](https://validator.w3.org/) and returned no errors and 1 warning to be ignored.
@@ -161,7 +163,7 @@ This project is deployed to the public by using Heroku. This is how I did it.
 5. You can now enable automatic deployment on Heroku.
 6. Scrolling down the page, you can click deploy branch.
 
-[View On Heroku](https://jakubmrowicki.github.io/memory-keypad/)
+[View On Heroku](http://health-diary-tracker.herokuapp.com/)
 
 # 10: Credits & Acknowledgments
 * [koala_dev](http://jsfiddle.net/koala_dev/3v2egwfs/7/) for their chevron rotation solution.

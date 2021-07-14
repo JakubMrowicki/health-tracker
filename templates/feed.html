@@ -62,7 +62,7 @@
         <div id="scroller" class="mb-3">
 
             <template id="post_template">
-                <div class="card mb-3">
+                <div class="card mb-3 animate__animated animate__fadeIn">
                     <div class="card-body">
                         <h5 class="card-title" id="title"></h5>
                         <p class="card-text" id="body"></p>
@@ -98,6 +98,10 @@
     {% else %}
         <h4 class="text-center my-5">No Entries Found.</h4>
     {% endif %}
+
+    <!--Modals-->
+
+    <!--Edit Entry Modal Start-->
     <div class="modal fade" id="editModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -133,8 +137,6 @@
                             Pin This Diary Entry
                         </label>
                     </div>
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -144,7 +146,10 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="deleteModal" tabindex="-1">
+    <!--Edit Entry Modal End-->
+
+    <!--Delete Confirmation Modal Start-->
+    <div class="modal animate__animated animate__bounceIn" id="deleteModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -161,4 +166,52 @@
             </div>
         </div>
     </div>
+    <!--Delete Confirmation Modal End-->
+
+    <!--New Entry Modal Start-->
+    <div class="modal animate__animated animate__backInDown animate__faster" id="addModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Entry</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/new" method="post">
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="title" id="add-title"
+                            placeholder="Title of your diary entry" required>
+                        <label for="title">Title</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea type="text" class="form-control" name="body" id="add-body"
+                            placeholder="Write your diary entry here" style="height: 100px" maxlength="200"></textarea>
+                        <label for="body">Body</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" name="type" id="add-type" required>
+                            <option value="1" selected>Diary Entry</option>
+                            <option value="2">Appointment</option>
+                            <option value="3">Prescription</option>
+                            <option value="4">Doctor's Advice</option>
+                            <option value="5">Allergic Reaction</option>
+                        </select>
+                        <label for="type">Entry Type</label>
+                    </div>
+                    <div id="add-pinAllow" class="form-check d-flex justify-content-center">
+                        <input class="form-check-input" type="checkbox" name="pinned" id="add-pinned" value="pin">
+                        <label class="form-check-label ms-1" for="pinned">
+                            Pin This Diary Entry
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Entry</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--New Entry Modal End-->
 {% endblock%}

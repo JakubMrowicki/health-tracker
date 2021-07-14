@@ -1,6 +1,6 @@
 let host = location.protocol + "//" + window.location.hostname;
 
-function backFunc(duration = 150){
+function backFunc(duration = 150) {
     $('#login').slideUp( duration, function() {
         // Animation complete.
     });
@@ -9,7 +9,7 @@ function backFunc(duration = 150){
     });
 }
 
-function loginFunc(duration = 150){
+function loginFunc(duration = 150) {
     $('#default').slideUp( duration, function() {
         // Animation complete.
     });
@@ -18,7 +18,7 @@ function loginFunc(duration = 150){
     });
 }
 
-function profile(){
+function profile() {
     if($('#details-box').css('display') == 'none'){
         $('#details-box').slideDown( 150, function() {
             // Animation complete.
@@ -32,10 +32,26 @@ function profile(){
     }
 }
 
-function confirm(id){
+function confirm(id) {
     $('#deleteModal').modal('show');
     $('#confirmFinal').attr('href', host + "/delete/" + id)
     console.log(id);
+}
+
+function newEntry() {
+    fetch('check_pins').then((response) => {
+        response.json().then((data) => {
+            $(".tooltip").tooltip("hide");
+            $('#addModal').modal('show');
+            if(parseInt(data) >= 5) {
+                $('#add-pinned').prop('disabled', true);
+                $('#add-pinAllow').attr('data-bs-toggle', 'tooltip');
+                $('#add-pinAllow').attr('data-bs-placement', 'bottom');
+                $('#add-pinAllow').attr('title', 'Maximum pins limit reached.');
+                initTooltips();
+            }
+        })
+    })
 }
 
 if($('#alert').length) {
@@ -60,12 +76,12 @@ $('#alert').bind('click', function() {
 
 function initTooltips() {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    this.addEventListener('hide.bs.tooltip', function () {
-        new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-    return new bootstrap.Tooltip(tooltipTriggerEl)
-});
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        this.addEventListener('hide.bs.tooltip', function () {
+            new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    });
 }
 initTooltips();
 
@@ -82,10 +98,7 @@ function edit(id) {
 
     fetch(`/edit/${id}`).then((response) => {
         response.json().then((data) => {
-            if(!data.length) {
-                console.log("Error, no data.");
-            }
-            console.log(data);
+
             title.val(data['title']);
             body.val(data['body']);
             type.val(data['type']);
@@ -151,7 +164,11 @@ if ($('#feed-header').length) {
 
                     // Query & update the template content
                     template_clone.querySelector("#title").innerHTML = data[i]['title'];
-                    template_clone.querySelector("#body").innerHTML = data[i]['body'];
+                    if (!data[i]['body']) {
+                        template_clone.querySelector("#body").remove();
+                    } else {
+                        template_clone.querySelector("#body").innerHTML = data[i]['body'];
+                    }
                     template_clone.querySelector("#date").innerHTML = data[i]['date'];
                     template_clone.querySelector("#delete-btn").setAttribute("onclick", "confirm('" + data[i]['_id'] + "')");
                     template_clone.querySelector("#pin-btn").setAttribute("href", pinUrl);
