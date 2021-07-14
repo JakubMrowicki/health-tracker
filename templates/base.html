@@ -17,12 +17,7 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url_for('home') }}">Health Tracker</a>
                 <div class="d-flex justify-content-end">
-                    {% if request.endpoint == 'home' %}
-                        <button onclick="newEntry()" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="New entry"><i class="fas fa-plus-circle"></i></button>
-                    {% else %}
-                        <a href="{{ url_for('home') }}" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Home"><i class="fas fa-home"></i></a>
-                    {% endif %}
-                    
+                    <button onclick="newEntry()" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="New entry"><i class="fas fa-plus-circle"></i></button>
                     <button class="btn btn-outline-secondary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search"><i class="fas fa-search"></i></button>
                     <a href="{{ url_for('signout') }}" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sign out"><i class="fas fa-sign-out-alt"></i></a>
                 </div>
@@ -31,11 +26,17 @@
     </header>
 
     <section class="container">
-        {% with messages = get_flashed_messages() %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
-                {% for message in messages %}
+                {% for category, message in messages %}
                     <div class="row">
-                        <div id="alert" class="alert alert-info my-2" role="alert">
+                        {% if category == "error" %}
+                            <div id="alert" class="alert alert-danger my-2" role="alert">
+                        {% elif category == "warning" %}
+                            <div id="alert" class="alert alert-warning my-2" role="alert">
+                        {% elif category == "success" %}
+                            <div id="alert" class="alert alert-success my-2" role="alert">
+                        {% endif %}
                             {{ message }}
                         </div>
                     </div>

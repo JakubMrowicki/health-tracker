@@ -39,13 +39,19 @@
                 <small class="d-block text-center">Keep a health diary. It's good for you! 
                     <a href="#">Learn more here!</a></small>
                 
-                {% with messages = get_flashed_messages() %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
-                        {% for message in messages %}
+                        {% for category, message in messages %}
                             <div class="row">
-                                <div id="alert" class="alert alert-info my-2" role="alert">
+                                {% if category == "error" %}
+                                    <div id="alert" class="alert alert-danger my-2" role="alert">
+                                {% elif category == "warning" %}
+                                    <div id="alert" class="alert alert-warning my-2" role="alert">
+                                {% elif category == "success" %}
+                                    <div id="alert" class="alert alert-success my-2" role="alert">
+                                {% endif %}
                                     {{ message }}
-                                  </div>
+                                </div>
                             </div>
                         {% endfor %}
                     {% endif %}

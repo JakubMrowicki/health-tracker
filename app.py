@@ -30,13 +30,13 @@ def home():
         if check_user:
             if check_password_hash(check_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
-                flash("Welcome, {}!".format(check_user["firstname"]))
+                flash("Welcome, {}!".format(check_user["firstname"]), "success")
                 return redirect(url_for("home"))
             else:
-                flash("Incorrect username or password. Please try again.")
+                flash("Incorrect username or password. Please try again.", "error")
                 return redirect(url_for("home"))
         else:
-            flash("Incorrect username or password. Please try again.")
+            flash("Incorrect username or password. Please try again.", "error")
             return redirect(url_for("home"))
     if not is_logged():
         return render_template("welcome.html")
@@ -102,10 +102,10 @@ def load():
 @app.route("/signout")
 def signout():
     if not is_logged():
-        flash("You must be logged in to access this page.")
+        flash("You must be logged in to access this page.", "error")
         return render_template("welcome.html")
     else:
-        flash("You've been signed out.")
+        flash("You've been signed out.", "success")
         session.pop("user")
         return redirect(url_for("home"))
 
@@ -116,11 +116,11 @@ def register():
         username_check = mongo.db.users.find_one_or_404(
             {"username": request.form.get("username").lower()})
         if username_check:
-            flash("User already exists, try logging in instead.")
+            flash("User already exists, try logging in instead.", "warning")
             return redirect(url_for("home"))
         password_check = len(request.form.get("password"))
         if password_check < 6:
-            flash("Your password is too short, make sure it's at least 6 characters long.")
+            flash("Your password is too short, make sure it's at least 6 characters long.", "warning")
             return render_template("register.html")
         new_user = {
             "firstname": request.form.get("firstname").lower().capitalize(),
@@ -130,7 +130,7 @@ def register():
         mongo.db.users.insert_one(new_user)
 
         session["user"] = request.form.get("username").lower()
-        flash("You're in!")
+        flash("You're in!", "success")
         return redirect(url_for("home"))
     return render_template("register.html")
 
@@ -138,7 +138,7 @@ def register():
 @app.route("/new", methods=["GET", "POST"])
 def new():
     if not is_logged():
-        flash("You must be logged in to access this page.")
+        flash("You must be logged in to access this page.", "error")
         return render_template("welcome.html")
     else:
         pinned_count = list(mongo.db.entries.find({
@@ -160,7 +160,7 @@ def new():
                 "user": session["user"]
             }
             mongo.db.entries.insert_one(entry)
-            flash("Your entry has been added!")
+            flash("Your entry has been added!", "success")
             return redirect(url_for("home"))
     return abort(404)
 
@@ -168,7 +168,7 @@ def new():
 @app.route("/pin/<entry_id>")
 def pin(entry_id):
     if not is_logged():
-        flash("You must be logged in to access this page.")
+        flash("You must be logged in to access this page.", "error")
         return render_template("welcome.html")
     else:
         entry = mongo.db.entries.find_one_or_404({"_id": ObjectId(entry_id)})
@@ -178,7 +178,7 @@ def pin(entry_id):
                 "pinned": True
             })
             if len(list(pinned_count)) >= 5 and not entry["pinned"]:
-                flash("You can only pin 5 diary entries at a time. Try unpinning some old entries to make room.")
+                flash("You can only pin 5 diary entries at a time. Try unpinning some old entries to make room.", "warning")
                 return redirect(url_for("home"))
             else:
                 if entry["pinned"]:
@@ -192,14 +192,14 @@ def pin(entry_id):
                         {"$set": {"pinned": True}})
                     return redirect(url_for("home"))
         else:
-            flash("You can only pin your own diary entries.")
+            flash("You can only pin your own diary entries.", "error")
             return redirect(url_for("home"))
 
 
 @app.route("/delete/<entry_id>")
 def delete(entry_id):
     if not is_logged():
-        flash("You must be logged in to access this page.")
+        flash("You must be logged in to access this page.", "error")
         return render_template("welcome.html")
     else:
         entry = mongo.db.entries.find_one_or_404({"_id": ObjectId(entry_id)})
@@ -213,7 +213,7 @@ def delete(entry_id):
                     {"_id": ObjectId(entry_id)})
                 return redirect(url_for("home"))
         else:
-            flash("You can only delete your own diary entries.")
+            flash("You can only delete your own diary entries.", "error")
             return redirect(url_for("home"))
 
 
@@ -252,7 +252,7 @@ def edit(entry_id):
                             "type": request.form.get("type"),
                             "pinned": pinned
                         }})
-                flash("Entry updated.")
+                flash("Entry updated.", "success")
                 return redirect(url_for("home"))
             else:
                 abort(400)
