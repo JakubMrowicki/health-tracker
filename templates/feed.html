@@ -30,34 +30,7 @@
     
     {% if entries|length > 0 %}
     <h4 id="feed-header">Diary Entries</h4>
-        {% for entry in pinned_entries %}
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title"><i class="fas fa-thumbtack"></i> {{ entry.title }}</h5>
-                        {% if entry.body != None %}
-                            <p class="card-text">{{ entry.body }}</p>
-                        {% endif %}
-                        <div class="card-footer bg-transparent px-0">
-                            <div class="row">
-                                <div class="col-md d-flex justify-content-between">
-                                    <small class="text-muted">Entry Date: {{ entry.date }}</small>
-                                    <ul class="list-inline p-0">
-                                        <li class="list-inline-item">
-                                            <small id="edit-btn" onclick="edit('{{ entry._id }}')">Edit</small>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <small onclick="confirm('{{ entry._id }}')">Delete</small>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <small><a href="{{ url_for('pin', entry_id=entry._id) }}">Unpin</a></small>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        {% endfor %}
+        
         
         <div id="scroller" class="mb-3">
 

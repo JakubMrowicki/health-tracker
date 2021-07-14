@@ -70,10 +70,11 @@ def feed():
 def load():
     """ Route to return the posts """
 
-    db = list(mongo.db.entries.find(
-        {"user": session["user"],
-            "pinned": False}
-            ).sort("_id", -1))
+    db = list(mongo.db.entries.find({"user": session["user"], "pinned": True}).sort("_id", -1))
+    
+    entries = list(mongo.db.entries.find({"user": session["user"], "pinned": False}).sort("_id", -1))
+
+    db.extend(entries)
 
     for entry in db:
         entry['_id'] = str(entry['_id'])

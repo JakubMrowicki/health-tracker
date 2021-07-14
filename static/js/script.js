@@ -185,6 +185,9 @@ if ($('#feed-header').length) {
                     }
                     template_clone.querySelector("#date").innerHTML = data[i]['date'];
                     template_clone.querySelector("#delete-btn").setAttribute("onclick", "confirm('" + data[i]['_id'] + "')");
+                    if (data[i]['pinned']) {
+                        template_clone.querySelector("#pin-btn").innerHTML = 'Unpin';
+                    }
                     template_clone.querySelector("#pin-btn").setAttribute("href", pinUrl);
                     template_clone.querySelector("#edit-btn").setAttribute("onclick", "edit('" + data[i]['_id'] + "')");
 
