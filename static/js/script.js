@@ -144,15 +144,19 @@ Credit: https://pythonise.com/categories/javascript/infinite-lazy-loading
 
 if ($('#feed-header').length) {
     // Get references to the dom elements
-    var scroller = document.querySelector("#scroller");
-    var template = document.querySelector('#post_template');
-    var sentinel = document.querySelector('#sentinel');
+    let scroller = document.querySelector("#scroller");
+    let template = document.querySelector('#post_template');
+    let sentinel = document.querySelector('#sentinel');
 
     // Set a counter to count the items loaded
-    var counter = 0;
+    let counter = 0;
+
+    // Check if function is already in progress
+    let working = false;
 
     // Function to request new items and render to the dom
     function loadItems() {
+        working = true;
         sentinel.innerHTML = `<div class="spinner-border" role="status"></div>`;
         // Use fetch to request data and pass the counter value in the QS
         fetch(`/load?c=${counter}`).then((response) => {
@@ -165,6 +169,7 @@ if ($('#feed-header').length) {
 
                     // Replace the spinner with "No more posts"
                     sentinel.innerHTML = "No more posts";
+                    working = false;
                     return;
                 }
 
@@ -187,6 +192,7 @@ if ($('#feed-header').length) {
                     template_clone.querySelector("#delete-btn").setAttribute("onclick", "confirm('" + data[i]['_id'] + "')");
                     if (data[i]['pinned']) {
                         template_clone.querySelector("#pin-btn").innerHTML = 'Unpin';
+                        template_clone.querySelector("#title").innerHTML = `<i class="fas fa-thumbtack"></i> ${data[i]['title']}`;
                     }
                     template_clone.querySelector("#pin-btn").setAttribute("href", pinUrl);
                     template_clone.querySelector("#edit-btn").setAttribute("onclick", "edit('" + data[i]['_id'] + "')");
@@ -195,7 +201,8 @@ if ($('#feed-header').length) {
                     scroller.appendChild(template_clone);
 
                     // Increment the counter
-                    counter += 1;
+                    counter++;
+                    working = false;
                     sentinel.innerHTML = "No more posts";
                 }
             })
@@ -204,13 +211,6 @@ if ($('#feed-header').length) {
 
     // Create a new IntersectionObserver instance
     var intersectionObserver = new IntersectionObserver(entries => {
-
-        // Uncomment below to see the entry.intersectionRatio when
-        // the sentinel comes into view
-
-        // entries.forEach(entry => {
-        //   console.log(entry.intersectionRatio);
-        // })
 
         // If intersectionRatio is 0, the sentinel is out of view
         // and we don't need to do anything. Exit the function
@@ -224,4 +224,68 @@ if ($('#feed-header').length) {
 
     // Instruct the IntersectionObserver to watch the sentinel
     intersectionObserver.observe(sentinel);
+
+    
+    // Check if a user is trying to scroll past the end of the page.
+    // This is a combination of the three below scripts.
+    // Credit: https://stackoverflow.com/a/3898152 https://stackoverflow.com/a/10545584 https://stackoverflow.com/a/46248086
+
+
+    $(window).bind('mousewheel', function(event) {
+        if (event.originalEvent.wheelDelta < 0) {
+            if($(window).scrollTop() + $(window).height() == $(document).height() && !working) {
+                loadItems();
+            }
+        }
+    });
+
+    // If on mobile, enable swipe up to load more.
+
+    if ($(window).width() <=  768) {
+        var pStart = {x: 0, y:0};
+        var pStop = {x:0, y:0};
+        
+        function swipeStart(e) {
+            if (typeof e['targetTouches'] !== "undefined"){
+                var touch = e.targetTouches[0];
+                pStart.x = touch.screenX;
+                pStart.y = touch.screenY;
+            } else {
+                pStart.x = e.screenX;
+                pStart.y = e.screenY;
+            }
+        }
+        
+        function swipeEnd(e){
+            if (typeof e['changedTouches'] !== "undefined"){
+                var touch = e.changedTouches[0];
+                pStop.x = touch.screenX;
+                pStop.y = touch.screenY;
+            } else {
+                pStop.x = e.screenX;
+                pStop.y = e.screenY;
+            }
+        
+            swipeCheck();
+        }
+        
+        function swipeCheck(){
+            var changeY = pStart.y - pStop.y;
+            var changeX = pStart.x - pStop.x;
+            if (isPullUp(changeY, changeX) && !working) {
+                loadItems();
+            }
+        }
+        
+        function isPullUp(dY, dX) {
+            // methods of checking slope, length, direction of line created by swipe action 
+            return dY > 0 && (
+                (Math.abs(dX) <= 100 && Math.abs(dY) >= 200)
+                || (Math.abs(dX)/Math.abs(dY) <= 0.3 && dY >= 60)
+            );
+        }
+        
+        document.addEventListener('touchstart', function(e){ swipeStart(e); }, false);
+        document.addEventListener('touchend', function(e){ swipeEnd(e); }, false);
+    }
 }
