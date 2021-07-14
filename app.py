@@ -117,7 +117,7 @@ def signout():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        username_check = mongo.db.users.find_one_or_404(
+        username_check = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
         if username_check:
             flash("User already exists, try logging in instead.", "warning")

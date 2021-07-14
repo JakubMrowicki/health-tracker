@@ -82,8 +82,10 @@ $('#details').bind('click', function() {
     profile();
 });
 
-$('#alert').bind('click', function() {
-    $(this).slideUp(150);
+$('#alert').each(function() {
+    $(this).bind('click', function() {
+        $(this).slideUp(150);
+    });
 });
 
 function initTooltips() {
