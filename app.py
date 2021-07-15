@@ -24,6 +24,7 @@ mongo = PyMongo(app)
 # Contant Values
 TITLE_LIMIT = 70
 BODY_LIMIT = 200
+LAZY_LIMIT = 6
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -79,7 +80,7 @@ def load():
     for entry in db:
         entry['_id'] = str(entry['_id'])
 
-    quantity = 5
+    quantity = LAZY_LIMIT
 
     if request.args:
         try:
@@ -257,7 +258,7 @@ def edit(entry_id):
         if is_object_id_valid(entry_id):
             if entry["user"] == session["user"]:
                 # check if title and body exceed character limits
-                if len(entry["title"]) > TITLE_LIMIT or len(entry["body"]) > BODY_LIMIT:
+                if len(request.form.get("title")) > TITLE_LIMIT or len(request.form.get("body")) > BODY_LIMIT:
                     flash("Your title or body is too long.", "warning")
                     return redirect(url_for("home"))
                 # check if entry is to be pinned
