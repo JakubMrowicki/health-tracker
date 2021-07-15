@@ -300,7 +300,7 @@ def search():
 def page_not_found(e):
     # handle a page not found error
     if is_logged():
-        return render_template("404.html"), 404
+        return render_template("error.html", error=404), 404
     else:
         flash("Error: 404 Page Not Found.", "error")
         return redirect(url_for('home'))
@@ -310,7 +310,7 @@ def page_not_found(e):
 def internal_server(e):
     # handle a server error.
     if is_logged():
-        return render_template("500.html"), 500
+        return render_template("error.html", error=500), 500
     else:
         flash("Error: 500 Internal Server Error.", "error")
         return redirect(url_for('home'))
@@ -320,7 +320,7 @@ def internal_server(e):
 def handle_bad_request(e):
     # handle a bad request.
     if is_logged():
-        return render_template("400.html"), 400
+        return render_template("error.html", error=400), 400
     else:
         flash("Error: 400 Bad Request.", "error")
         return redirect(url_for('home'))
