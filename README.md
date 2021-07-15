@@ -63,6 +63,7 @@ Below are some user stories which reveal how this website is useful for the end 
 * Private profile where you can see your current medications, any allergies etc.
 * A timeline of diary entries, sorted by new with pinned messages highlighted at the top.
 * Account settings page where you can edit your profile details.
+
 ---
 ## Structure Plane
 ### Information Architecture
@@ -97,16 +98,20 @@ Off-White | #FAFAFA | ![#FAFAFA](https://via.placeholder.com/15/FAFAFA/000000?te
 
 
 ### Typography
-"[Zilla Slab Highlight](https://fonts.google.com/specimen/Zilla+Slab+Highlight)" will be used at the top of the page to display the title of the game.
 
 "[Roboto](https://fonts.google.com/specimen/Roboto)" will be used for any headings.
 
 "[Open Sans](https://fonts.google.com/specimen/Open+Sans)" will be used for the body.
 # 4: Features
-* 
+* User Authentication: Register, Log In and Sign Out functions
+* Lazy loading with infinite scroll for viewing entry feed
+* Edit and update entries
+* Delete entries with confirmation
+* Pin entries to be stuck to the top(Limited to 5 pins)
+* Search entries function
+
 ### Future Features
 * 
-
 
 # 5: Technologies Used
 This project uses the following technologies:
@@ -114,13 +119,15 @@ This project uses the following technologies:
 * CSS3
 * JavaScript
 * jQuery
-* Bootstrap 4.6
+* Python
+* Flask
+* MongoDB
+* Bootstrap 5
 * FontAwesome Icons
 * Google Fonts
 * Github & Git
 * GitPod
 * Heroku
-* Photoshop
 
 # 6: Trials & Testing
 * Website was run through the Mobile-Friendly Test by Google and was deemed Mobile Friendly. To further test this, I opened the website on my phone as well as friends and co-workers phones.
@@ -135,8 +142,6 @@ This project uses the following technologies:
 * Tested the navigation bar to ensure no bugs are present and that it behaves accordingly.
 
 # 7: Problem Areas & Solutions
-* My friends were not sure if the game was active or not when I showed them.
-    * __Solution:__ I added a glow to the keypad keys to let users know the game is started.
 * You could pin more than 5 entries if you pinned it upon creation with 5 pins already present.
     * __Solution:__ I added a check in the backend to prevent this from happening, even if you get rid of the disabled attribute on the checkbox using inspect element.
 * Heroku deployed version of the app wouldn't connect to the database even with the same vars.
