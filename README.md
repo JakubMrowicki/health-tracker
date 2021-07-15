@@ -132,6 +132,7 @@ This project uses the following technologies:
 * Checked and fixed any typos and grammar issues that I could find by using a [Chrome Extension called Webpage Spell-Check](https://chrome.google.com/webstore/detail/webpage-spell-check/mgdhaoimpabdhmacaclbbjddhngchjik).
 * Tested the register and log in function to ensure it's working correctly on desktop, mobile and the Heroku deployment version.
 * Tested and ensured that a user cannot pin more than 5 entries at a time.
+* Tested the navigation bar to ensure no bugs are present and that it behaves accordingly.
 
 # 7: Problem Areas & Solutions
 * My friends were not sure if the game was active or not when I showed them.
@@ -140,6 +141,8 @@ This project uses the following technologies:
     * __Solution:__ I added a check in the backend to prevent this from happening, even if you get rid of the disabled attribute on the checkbox using inspect element.
 * Heroku deployed version of the app wouldn't connect to the database even with the same vars.
     * __Solution:__ I noticed that they were in a different order when compared to my env file, so rearranging them solved the issue.
+* Mobile only search box remains open if page is resized to desktop size.
+    * __Solution:__ I wrote a function that listens for window size changes and hides the search box if it is open.
 
 # 8: Code Validation
 HTML was Validated using the [W3 Validator](https://validator.w3.org/) and returned no errors and 1 warning to be ignored.

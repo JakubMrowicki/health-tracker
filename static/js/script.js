@@ -57,18 +57,31 @@ if($('#alert').length) {
     loginFunc(0);
 }
 
+//Functions related to the search functionality.
+
+//This bind enables an alternative search box for mobile users.
 $('#search-btn').bind('click', function(e) {
     if ($(window).width() <=  768) {
         e.preventDefault();
         $(".tooltip").tooltip("hide");
         $('#search-box2').slideToggle( 150, function() {
-            // Animation complete.
             if ($('#search-box2').css('display') == 'block') {
                 $('#mquery').focus();
             }
         });
     }
 });
+
+//This function hides the mobile search box if it is left open and the window
+//is resized to 768px+ width as the inline nav search box is now active.
+window.onresize = searchHider;
+function searchHider() {
+    if (window.innerWidth >= 768 && $('#search-box2').css('display') == 'block') {
+        $('#search-box2').slideUp( 150, function() {
+            // Animation complete.
+        });
+    }
+}
 
 $('#log-in-button').bind('click', function() {
     loginFunc();
