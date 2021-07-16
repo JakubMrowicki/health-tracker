@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@600&display=swap');
 /*Overrides Start*/
 * {
     margin: 0;
@@ -15,7 +16,6 @@ body {
     background: radial-gradient(ellipse at center, #ededed 0%, #e3e3e3 67%, #d6d6d6 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#d6d6d6', GradientType=1 );
     overflow-x: hidden;
-    height: 100vh;
 }
 
 h1,
@@ -58,6 +58,24 @@ small {
     /* Internet Explorer/Edge */
     user-select: none;
     /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+.btn-success {
+    color: #fafafa;
+    background-color: #2B9348;
+    border-color: #2B9348;
+}
+
+.btn-primary {
+    color: #fafafa;
+    background-color: #336AFF;
+    border-color: #336AFF;
+}
+
+.btn-danger {
+    color: #fafafa;
+    background-color: #D90429;
+    border-color: #D90429;
 }
 /*Overrides End*/
 
@@ -102,6 +120,24 @@ small {
 /* Profile Styling End */
 
 /*Media Queries*/
+/* @media screen and (min-height: 200px) {
+
+    Vertically Center If Screen Height > Content Height
+    body {
+        height: 100vw;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+} */
+
 @media screen and (min-width: 992px) {
 
     .container {

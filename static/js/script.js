@@ -192,7 +192,7 @@ if ($('#feed-header').length) {
                     if (data[i]['pinned']) {
                         template_clone.querySelector("#pin-btn").innerHTML = `<i class="fas fa-star"></i>`;
                         template_clone.querySelector("#pin-btn").setAttribute("title", "Unpin");
-                        template_clone.querySelector("#title").innerHTML = `<i class="fas fa-star"></i> ${data[i]['title']}`;
+                        template_clone.querySelector("#title").innerHTML = `<i style="color: #FFD700" class="fas fa-star"></i> ${data[i]['title']}`;
                     }
                     template_clone.querySelector("#pin-btn").setAttribute("href", pinUrl);
                     template_clone.querySelector("#edit-btn").setAttribute("onclick", "edit('" + data[i]['_id'] + "')");

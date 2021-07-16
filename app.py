@@ -24,7 +24,7 @@ mongo = PyMongo(app)
 # Contant Values
 TITLE_LIMIT = 70
 BODY_LIMIT = 200
-LAZY_LIMIT = 6
+LAZY_LIMIT = 10
 
 
 @app.route("/", methods=["GET", "POST"])
