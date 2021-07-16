@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="icon" sizes="32x32" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/png">
     <title>Health Tracker</title>
 </head>
 <body class="noselect">
@@ -27,7 +28,6 @@
                         </div>
                     </form>
                     <button onclick="newEntry()" class="btn btn-success mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="New entry"><i class="fas fa-plus-circle"></i></button>
-                    <!--<button class="btn btn-outline-secondary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search"><i class="fas fa-search"></i></button>-->
                     <a href="{{ url_for('signout') }}" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sign out"><i class="fas fa-sign-out-alt"></i></a>
                 </div>
             </div>
@@ -47,26 +47,6 @@
         </div>
         
     </header>
-
-    <section class="container">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="row">
-                        {% if category == "error" %}
-                            <div id="alert" class="alert alert-danger my-2" role="alert">
-                        {% elif category == "warning" %}
-                            <div id="alert" class="alert alert-warning my-2" role="alert">
-                        {% elif category == "success" %}
-                            <div id="alert" class="alert alert-success my-2" role="alert">
-                        {% endif %}
-                            {{ message }}
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-    </section>
 
     <main class="container">
         {% block content %}

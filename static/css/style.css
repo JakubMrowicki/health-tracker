@@ -33,10 +33,6 @@ small {
     font-family: 'Open Sans', sans-serif;
 }
 
-li a {
-    width: 150px;
-}
-
 .welcome-container {
     max-width: 500px !important;
 }
@@ -67,10 +63,6 @@ li a {
 
 /* Custom Elements Start */
 
-#details-box {
-    display: none;
-}
-
 #search-box2 {
     display: none;
 }
@@ -91,10 +83,24 @@ li a {
 
 /* Custom Elements End */
 
+/* Profile Styling Start */
+
+.stats {
+    background: #f2f5f8 !important;
+    color: #000 !important
+}
+
+.articles {
+    font-size: 12px;
+    color: #a1aab9
+}
+
+/* Profile Styling End */
+
 /*Media Queries*/
 @media screen and (min-width: 992px) {
 
     .container {
         max-width: 900px;
     }
-    }
+}

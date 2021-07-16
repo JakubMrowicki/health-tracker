@@ -19,17 +19,7 @@ function loginFunc(duration = 150) {
 }
 
 function profile() {
-    if($('#details-box').css('display') == 'none'){
-        $('#details-box').slideDown( 150, function() {
-            // Animation complete.
-        });
-        $('.rotate').toggleClass("down"); 
-    } else {
-        $('#details-box').slideUp( 150, function() {
-            // Animation complete.
-        });
-        $('.rotate').toggleClass("down"); 
-    }
+    
 }
 
 function confirm(id) {
@@ -89,10 +79,6 @@ $('#log-in-button').bind('click', function() {
 
 $('#back-button').bind('click', function() {
     backFunc();
-});
-
-$('#details').bind('click', function() {
-    profile();
 });
 
 $('#alert').each(function() {
@@ -204,8 +190,9 @@ if ($('#feed-header').length) {
                     template_clone.querySelector("#date").innerHTML = data[i]['date'];
                     template_clone.querySelector("#delete-btn").setAttribute("onclick", "confirm('" + data[i]['_id'] + "')");
                     if (data[i]['pinned']) {
-                        template_clone.querySelector("#pin-btn").innerHTML = 'Unpin';
-                        template_clone.querySelector("#title").innerHTML = `<i class="fas fa-thumbtack"></i> ${data[i]['title']}`;
+                        template_clone.querySelector("#pin-btn").innerHTML = `<i class="fas fa-star"></i>`;
+                        template_clone.querySelector("#pin-btn").setAttribute("title", "Unpin");
+                        template_clone.querySelector("#title").innerHTML = `<i class="fas fa-star"></i> ${data[i]['title']}`;
                     }
                     template_clone.querySelector("#pin-btn").setAttribute("href", pinUrl);
                     template_clone.querySelector("#edit-btn").setAttribute("onclick", "edit('" + data[i]['_id'] + "')");
@@ -215,6 +202,7 @@ if ($('#feed-header').length) {
 
                     // Increment the counter
                     counter++;
+                    initTooltips();
                     working = false;
                     sentinel.innerHTML = "No more posts";
                 }

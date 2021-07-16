@@ -148,6 +148,8 @@ This project uses the following technologies:
     * __Solution:__ I noticed that they were in a different order when compared to my env file, so rearranging them solved the issue.
 * Mobile only search box remains open if page is resized to desktop size.
     * __Solution:__ I wrote a function that listens for window size changes and hides the search box if it is open.
+* Kept getting 404 errors I couldn't find in the code.
+    * __Solution__ I noticed in the terminal log that the favicon was returning a 404. Turn out web browsers like to check for one even if it's not declared in the html. Added a favicon to prevent it happening again.
 
 # 8: Code Validation
 HTML was Validated using the [W3 Validator](https://validator.w3.org/) and returned no errors and 1 warning to be ignored.

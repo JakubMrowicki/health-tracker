@@ -43,9 +43,9 @@ def home():
         else:
             flash("Incorrect username or password. Please try again.", "error")
             return redirect(url_for("home"))
-    if not is_logged():
-        return render_template("welcome.html")
     else:
+        if not is_logged():
+            return render_template("welcome.html")
         return feed()
 
 
@@ -292,6 +292,9 @@ def search():
                 "$text": {"$search": query},
                 "user": session["user"]
             }).sort("_id", -1).limit(10))
+        if not len(entries):
+            flash("No results found, try different keywords.", "warning")
+            return redirect(url_for('home'))
         return render_template("search.html", entries=entries)
     else:
         abort(404)
