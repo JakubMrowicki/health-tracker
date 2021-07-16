@@ -1,4 +1,5 @@
 let host = location.protocol + "//" + window.location.hostname;
+let path = window.location.pathname;
 
 function backFunc(duration = 150) {
     $('#login').slideUp( duration, function() {
@@ -21,12 +22,20 @@ function loginFunc(duration = 150) {
 function profile() {
     fetch('/edit_profile').then((response) => {
         response.json().then((data) => {
-            console.log(data);
             $('#profile-firstname').val(data['firstname']);
             $('#profile-image').val(data['profile_image']);
             $('#profile-bio').val(data['bio']);
             $('#profile-allergens').val(data['allergies']);
             $('#profileModal').modal('show');
+        })
+    })
+}
+
+function account() {
+    fetch('/account_settings').then((response) => {
+        response.json().then((data) => {
+            $('#new-username').val(data);
+            $('#accountModal').modal('show');
         })
     })
 }
@@ -90,12 +99,17 @@ $('#back-button').bind('click', function() {
     backFunc();
 });
 
-$('#alert').each(function() {
+//This function seeks out all elements with ID="alert"
+//and assigns a bind function so the user can click it away
+//Credit for selector: https://stackoverflow.com/a/16191756
+$('div[id^="alert"]').each(function() {
     $(this).bind('click', function() {
         $(this).slideUp(150);
     });
 });
 
+//Initialise Bootstrap Tooltips
+//Tooltips need to be re-initialised when a new tooltip is added to the page.
 function initTooltips() {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -109,6 +123,7 @@ initTooltips();
 
 /*
 Edit Modal
+Fetch field values from database and render in the form
 */
 
 function edit(id) {
@@ -150,7 +165,7 @@ This is an adapted script from the link below.
 Credit: https://pythonise.com/categories/javascript/infinite-lazy-loading
 */
 
-if ($('#feed-header').length) {
+if (path == "/feed") {
     // Get references to the dom elements
     let scroller = document.querySelector("#scroller");
     let template = document.querySelector('#post_template');

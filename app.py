@@ -46,22 +46,18 @@ def home():
     else:
         if not is_logged():
             return render_template("welcome.html")
-        return feed()
+        return redirect(url_for("feed"))
 
 
+@app.route("/feed")
 def feed():
+    if not is_logged():
+        return redirect(url_for("home"))
     user_info = mongo.db.users.find_one_or_404({"username": session["user"]})
     entries = list(mongo.db.entries.find(
-        {"user": session["user"]}).sort("_id", -1))
-    pinned_entries = list(mongo.db.entries.find(
-        {
-            "user": session["user"],
-            "pinned": True
-        }
-    ).sort("_id", -1))
+        {"user": session["user"]}))
     return render_template(
         "feed.html",
-        pinned_entries=pinned_entries,
         entries=entries,
         user=user_info
         )
@@ -299,6 +295,7 @@ def search():
             }).sort("_id", -1).limit(10))
         if not len(entries):
             flash("No results found, try different keywords.", "warning")
+            flash("Test", "error")
             return redirect(url_for('home'))
         return render_template("search.html", entries=entries)
     else:
@@ -307,13 +304,12 @@ def search():
 
 @app.route("/edit_profile", methods=["GET", "POST"])
 def edit_profile():
-    if is_logged():
-        user_info = mongo.db.users.find_one(
-            {
-                "username": session["user"]
-            })
-    else:
+    if not is_logged():
         return abort(400)
+    user_info = mongo.db.users.find_one(
+        {
+            "username": session["user"]
+        })
     if request.method == "POST":
         mongo.db.users.update_one(
             {
@@ -328,8 +324,43 @@ def edit_profile():
         return redirect(url_for("home"))
     del user_info["_id"]
     del user_info["password"]
-    print(user_info)
     return make_response(jsonify(user_info), 200)
+
+
+@app.route("/account_settings", methods=["GET", "POST"])
+def account_settings():
+    if not is_logged():
+        return abort(400)
+    user_info = mongo.db.users.find_one(
+        {
+            "username": session["user"]
+        })
+    if request.method == "POST":
+        if check_password_hash(user_info["password"], request.form.get("old-password")):
+            if request.form.get("new-password"):
+                password = generate_password_hash(request.form.get("new-password"))
+            else:
+                password = user_info["password"]
+            username_check = mongo.db.users.find_one(
+                {"username": request.form.get("username").lower()})
+            if username_check:
+                flash("Username is already taken.", "warning")
+                return redirect(url_for("feed"))
+            mongo.db.users.update_one({
+                "username": session["user"]
+            },{
+                "$set": {
+                    "username": request.form.get("username").lower(),
+                    "password": password
+                }
+            })
+            session.pop("user")
+            flash("Your account settings have been updated. Please sign back in.", "success")
+            return redirect(url_for("home"))
+        else:
+            flash("Incorrect password, please try again.", "warning")
+            return redirect(url_for("feed"))
+    return make_response(jsonify(user_info["username"]), 200)
 
 
 @app.errorhandler(404)
