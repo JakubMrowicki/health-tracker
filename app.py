@@ -30,7 +30,7 @@ LAZY_LIMIT = 10
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "POST":
-        check_user = mongo.db.users.find_one_or_404(
+        check_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
         if check_user:
             if check_password_hash(check_user["password"], request.form.get("password")):
