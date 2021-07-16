@@ -138,7 +138,12 @@ def register():
         session["user"] = request.form.get("username").lower()
         flash("You're in!", "success")
         return redirect(url_for("home"))
-    return render_template("register.html")
+    else:
+        if is_logged():
+            flash("You're already logged in.", "warning")
+            return redirect(url_for("home"))
+        else:
+            return render_template("register.html")
 
 
 @app.route("/new", methods=["GET", "POST"])
@@ -359,11 +364,7 @@ def handle_bad_request(e):
 
 def is_logged():
     # check if user is signed in.
-    try:
-        if session["user"]:
-            return True
-    except KeyError:
-        return False
+    return "user" in session
 
 
 def is_object_id_valid(id_value):
