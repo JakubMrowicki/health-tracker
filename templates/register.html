@@ -1,38 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
-        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
-        crossorigin="anonymous" />
-    <title>Health Tracker - Welcome</title>
-    <style>
-        @media screen and (min-height: 200px) {
-
-        /*Vertically Center If Screen Height > Content Height*/
-        body {
-            height: 100vh;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-orient: vertical;
-            -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-            flex-direction: column;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            justify-content: center;
-        }
-        }
-    </style>
-</head>
-<body>
-    <header class="container welcome-container">
+{% include "head.html" %}
+<body class="min-vh-100 d-flex align-items-center">
+    <div class="container welcome-container my-5">
         <div class="row">
             <div class="col-md">
                 <h1 class="text-center">Let's Get Started</h1>
@@ -73,6 +43,9 @@
                         <input type="password" class="form-control" id="password"
                             name="password" placeholder="Choose a password you'll remember" 
                             minlength="6" required>
+                        <div class="form-text">
+                            Your password must be at least 6 characters long.
+                        </div>
                     </div>
                     <div class="mb-3 d-flex justify-content-center">
                         <a href="{{ url_for('home') }}" class="btn btn-outline-secondary mx-1">Back</a>
@@ -81,17 +54,17 @@
                 </form>
             </div>
         </div>
-    </header>
-
-    <footer class="container">
-        <div class="row">
-            <!--Footer Text Start-->
-            <div class="col-md">
-                <span class="d-block text-center small mb-3">&copy; Health Tracker 2021</span>
+    
+        <footer class="container">
+            <div class="row">
+                <!--Footer Text Start-->
+                <div class="col-md">
+                    <span class="d-block text-center small mb-3">&copy; Health Tracker 2021</span>
+                </div>
+                <!--Footer Text End-->
             </div>
-            <!--Footer Text End-->
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <!--Script Files-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
