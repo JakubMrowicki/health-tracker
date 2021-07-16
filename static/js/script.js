@@ -233,7 +233,9 @@ if ($('#feed-header').length) {
     });
 
     // Instruct the IntersectionObserver to watch the sentinel
-    intersectionObserver.observe(sentinel);
+    if ($(sentinel).length) {
+        intersectionObserver.observe(sentinel);
+    }
 
     
     // Check if a user is trying to scroll past the end of the page.
