@@ -5,11 +5,11 @@
             {% for category, message in messages %}
                 <div class="row">
                     {% if category == "error" %}
-                        <div id="alert" class="alert alert-danger my-2" role="alert">
+                        <div id="alert" class="alert alert-danger mt-3 mb-0" role="alert">
                     {% elif category == "warning" %}
-                        <div id="alert" class="alert alert-warning my-2" role="alert">
+                        <div id="alert" class="alert alert-warning mt-3 mb-0" role="alert">
                     {% elif category == "success" %}
-                        <div id="alert" class="alert alert-success my-2" role="alert">
+                        <div id="alert" class="alert alert-success mt-3 mb-0" role="alert">
                     {% endif %}
                         {{ message }}
                     </div>
@@ -24,7 +24,11 @@
                     <div class="card shadow-sm w-100 pt-3 my-3">
                         <div class="d-flex align-items-center px-3 mb-3">
                             <div class="d-block">
-                                <img src="https://eu.ui-avatars.com/api/?size=155&bold=true&length=1&name={{ user.firstname[0] }}" class="img-fluid rounded-circle" width="70">
+                                {%- if user.profile_image|length > 1 -%}
+                                <img src="{{ user.profile_image }}" class="rounded-circle" width="70" height="70">
+                                {%- else -%}
+                                <img src="https://eu.ui-avatars.com/api/?size=155&bold=true&length=1&name={{ user.firstname[0] }}" class="rounded-circle" width="70" height="70">
+                                {%- endif -%}
                             </div>
                             <div class="ms-3">
                                 <h5 class="my-0">{{ user.firstname }}!</h5> <span>This is your diary.</span>
@@ -39,7 +43,7 @@
                         <div class="card-footer p-0">
                             <div class="d-flex justify-content-end justify-content-md-end justify-content-md-start align-items-center ms-3 me-2 py-2">
                                 <small class="me-auto text-muted d-none d-md-block d-lg-none">Entries: {{ entries|length }}</small>
-                                <button class="btn btn-sm btn-primary">Edit Profile</button>
+                                <button onclick="profile()" class="btn btn-sm btn-primary">Edit Profile</button>
                                 <button class="btn btn-sm btn-danger ms-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Account Settings">
                                     <i class="fas fa-cog"></i>
                                 </button>
@@ -53,7 +57,7 @@
                             {%- if user.bio|length > 1 -%}
                             {{- user.bio -}}
                             {%- else -%}
-                                No bio available, consider editing your profile.
+                                No bio, consider editing your profile.
                             {%- endif -%}
                         </span>
                         <h6 class="fw-bolder border-bottom mt-1">Allergies:</h6>
@@ -113,5 +117,5 @@
             {%- endif -%}
         </div>
     </div>
-{% include "modals.html" %}
+    {% include "modals.html" %}
 {%- endblock -%}

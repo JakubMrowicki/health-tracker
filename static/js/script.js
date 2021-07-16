@@ -19,7 +19,16 @@ function loginFunc(duration = 150) {
 }
 
 function profile() {
-    
+    fetch('/edit_profile').then((response) => {
+        response.json().then((data) => {
+            console.log(data);
+            $('#profile-firstname').val(data['firstname']);
+            $('#profile-image').val(data['profile_image']);
+            $('#profile-bio').val(data['bio']);
+            $('#profile-allergens').val(data['allergies']);
+            $('#profileModal').modal('show');
+        })
+    })
 }
 
 function confirm(id) {

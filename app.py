@@ -300,6 +300,33 @@ def search():
         abort(404)
 
 
+@app.route("/edit_profile", methods=["GET", "POST"])
+def edit_profile():
+    if is_logged():
+        user_info = mongo.db.users.find_one(
+            {
+                "username": session["user"]
+            })
+    else:
+        return abort(400)
+    if request.method == "POST":
+        mongo.db.users.update_one(
+            {
+                "username": session["user"]
+            },
+            {"$set": {
+                "firstname": request.form.get("firstname"),
+                "profile_image": request.form.get("profile-image"),
+                "bio": request.form.get("bio"),
+                "allergies": request.form.get("allergens")
+            }})
+        return redirect(url_for("home"))
+    del user_info["_id"]
+    del user_info["password"]
+    print(user_info)
+    return make_response(jsonify(user_info), 200)
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     # handle a page not found error

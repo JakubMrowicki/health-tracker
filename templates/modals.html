@@ -1,5 +1,46 @@
     <!--Modals-->
 
+    <!--Edit Profile Modal Start-->
+    <div class="modal fade" id="profileModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editProfile" action="/edit_profile" method="post" autocomplete="off">
+                <div class="modal-body" id="editBody">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" name="firstname" id="profile-firstname" 
+                        placeholder="What can we call you?" pattern="^[a-zA-Z]{2,10}$" minlength="2" maxlength="10" required>
+                        <label for="firstname">First Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="url" pattern="https://.*" class="form-control" name="profile-image" id="profile-image" 
+                        placeholder="Image URL">
+                        <label for="profile-image">Profile Picture URL</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea type="text" class="form-control" name="bio" id="profile-bio"
+                            placeholder="Write your bio here" style="height: 100px" maxlength="200"></textarea>
+                        <label for="bio">Bio</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea type="text" class="form-control" name="allergens" id="profile-allergens"
+                            placeholder="Do you have allergies?" style="height: 100px" maxlength="200"></textarea>
+                        <label for="allergens">Allergens</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update profile</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--Edit Profile Modal End-->
+
     <!--Edit Entry Modal Start-->
     <div class="modal fade" id="editModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
