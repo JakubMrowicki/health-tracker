@@ -233,6 +233,7 @@ if ($('#feed-header').length) {
     });
 
     // Instruct the IntersectionObserver to watch the sentinel
+    // if sentinel exists
     if ($(sentinel).length) {
         intersectionObserver.observe(sentinel);
     }
