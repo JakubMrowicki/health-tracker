@@ -1,6 +1,6 @@
 # Health Tracker - Track Your Health
 
-![AmIResponsive]()
+![AmIResponsive](https://i.imgur.com/ejPKxgw.png)
 
 [View Project on Heroku](http://health-diary-tracker.herokuapp.com/)
 
@@ -40,7 +40,7 @@ Below are some user stories which reveal how this website is useful for the end 
 + 'A user: I want to write down and save my doctor's advice so that I don't forget it'
 + 'A user: I want to be able to pin important entries to the top of my timeline, such as important things to mention to my doctor upon my next visit'
 + 'A user: I want to be able to keep a well-being diary where I can write about how I'm feeling'
-+ 'A user: I want my profile to diplay my bio and allergies'
++ 'A user: I want my profile to display my bio and allergies'
 
 # 3: User Experience(UX)
 ## Strategy Plane
@@ -56,10 +56,10 @@ Below are some user stories which reveal how this website is useful for the end 
 ### Function Requirements
 * Provide a timeline of the users entries sorted by new to old.
 * Allow the user to search for keywords. For example the user might have a diary entry where they have an adverse reaction to particular medication and may choose to find an alternative.
-* Allow the user to pin, edit and delete diary entries.
+* Allow the user to add, pin, edit and delete diary entries.
 
 ### Content Requirements
-* Home page where new users are introduced to the web app and it's features.
+* Home page where new users are introduced to the web app.
 * Private profile where you can see your current medications, any allergies etc.
 * A timeline of diary entries, sorted by new with pinned messages highlighted at the top.
 * Account settings page where you can edit your profile details.
@@ -70,26 +70,26 @@ Below are some user stories which reveal how this website is useful for the end 
 * There should be annotations on inputs to best describe what they mean.
 ### Data Structure
 __'users' Collection__
-key | type | purpose
---- | --- | ---
-_id | objectid | unique id
-firstname | string | user's first name to be displayed in profile
-username | string | user's username
-password | string | user's password(hashed)
-profile_image | string | image url
-bio | string | user's bio for profile
-allergies | string | user's allergies for profile
+key | type | purpose | required?
+--- | --- | --- | ---
+_id | objectid | unique id | yes
+firstname | string | user's first name to be displayed in profile | yes
+username | string | user's username | yes
+password | string | user's password(hashed) | yes
+profile_image | string | image url | no
+bio | string | user's bio for profile | no
+allergies | string | user's allergies for profile | no
 
 __'entries' Collection__
-key | type | purpose
---- | --- | ---
-_id | objectid | unique id
-title | string | entry title
-body | string | entry body
-type | string | entry type
-pinned | boolean | true if entry is pinned
-date | string | timestamp of entry creation
-user | string | entry creator
+key | type | purpose | required?
+--- | --- | --- | ---
+_id | objectid | unique id | yes
+title | string | entry title | yes
+body | string | entry body | no
+type | string | entry type | yes
+pinned | boolean | true if entry is pinned | yes
+date | string | timestamp of entry creation | yes(automatic)
+user | string | entry creator | yes
 
 ### Interaction Design
 * There should be a way to edit a user's profile/account settings
@@ -134,7 +134,8 @@ Charcoal | #2c3e50 | ![#2c3e50](https://via.placeholder.com/15/2c3e50/000000?tex
 * Edit Profile and Account settings function
 
 ### Future Features
-* 
+* Ability to attach images to entries
+* Ability to upload files, like pdf prescriptions to attach to entries
 
 # 5: Technologies Used
 This project uses the following technologies:
@@ -151,6 +152,8 @@ This project uses the following technologies:
 * Github & Git
 * GitPod
 * Heroku
+* animate.css
+* ui-avatars.com
 
 # 6: Trials & Testing
 * Website was run through the Mobile-Friendly Test by Google and was deemed Mobile Friendly. To further test this, I opened the website on my phone as well as friends and co-workers phones.
@@ -173,6 +176,8 @@ This project uses the following technologies:
     * __Solution:__ I wrote a function that listens for window size changes and hides the search box if it is open.
 * Kept getting 404 errors I couldn't find in the code.
     * __Solution__ I noticed in the terminal log that the favicon was returning a 404. Turn out web browsers like to check for one even if it's not declared in the html. Added a favicon to prevent it happening again.
+* Heroku app crashed because I imported __requests__ and pip freeze didn't add it to requirements.txt
+    * __Solution__ I used the python terminal's help() function to find the requests version number and add it to requirements.txt manually.
 
 # 8: Code Validation
 HTML was Validated using the [W3 Validator](https://validator.w3.org/) and returned 12 errors to be ignored.
