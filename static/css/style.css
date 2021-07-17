@@ -83,6 +83,10 @@ small {
     background-color: #D90429;
     border-color: #D90429;
 }
+
+.vh-90 {
+    height: 90vh!important;
+}
 /*Overrides End*/
 
 /* Custom Elements Start */
@@ -148,5 +152,11 @@ small {
 
     .container {
         max-width: 900px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .h-md-90 {
+        height: 90vh;
     }
 }
