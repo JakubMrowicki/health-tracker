@@ -211,7 +211,20 @@ if (path == "/feed") {
                     } else {
                         template_clone.querySelector("#body").innerHTML = data[i]['body'];
                     }
+                    let type
+                    if (data[i]['type'] == 1) {
+                        type = "Diary Entry";
+                    } else if (data[i]['type'] == 2) {
+                        type = "Appointment";
+                    } else if (data[i]['type'] == 3) {
+                        type = "Prescription";
+                    } else if (data[i]['type'] == 4) {
+                        type = "Doctor's Advice";
+                    } else if (data[i]['type'] == 5) {
+                        type = "Allergic Reaction";
+                    }
                     template_clone.querySelector("#date").innerHTML = data[i]['date'];
+                    template_clone.querySelector("#type").innerHTML = type;
                     template_clone.querySelector("#delete-btn").setAttribute("onclick", "confirm('" + data[i]['_id'] + "')");
                     if (data[i]['pinned']) {
                         template_clone.querySelector("#pin-btn").innerHTML = `<i class="fas fa-star"></i>`;

@@ -1,10 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@600&display=swap');
+
 /*Overrides Start*/
 * {
     margin: 0;
     padding: 0;
 }
 
+html {
+    min-height: -webkit-fill-available;
+}
 body {
     /*Generated using cssmatic.com*/
     background: #ededed;
@@ -16,6 +20,8 @@ body {
     background: radial-gradient(ellipse at center, #ededed 0%, #e3e3e3 67%, #d6d6d6 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#d6d6d6', GradientType=1 );
     overflow-x: hidden;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
 }
 
 h1,

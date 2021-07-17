@@ -31,7 +31,7 @@
                                 {%- endif -%}
                             </div>
                             <div class="ms-3">
-                                <h5 class="my-0">{{ user.firstname }}!</h5> <span>This is your diary.</span>
+                                <h5 class="my-0">{{ user.firstname }}</h5> <span>Standard User</span>
                             </div>
                             <div class="ms-auto p-2 d-md-none d-lg-block rounded stats">
                                 <div class="d-flex flex-column">
@@ -77,9 +77,10 @@
                 <hr class="d-md-none border-2 border-top mt-0 border-secondary">
                 <div id="scroller" class="mb-3">
                     <template id="post_template">
-                        <div class="card shadow-sm mb-3 animate__animated animate__fadeIn">
-                            <div class="card-body px-0">
-                                <h5 class="card-title mx-3" id="title"></h5>
+                        <div class="card shadow-sm mb-3 animate__animated animate__fadeIn animate__faster">
+                            <div class="card-body p-0">
+                                <div class="card-header" id="type"></div>
+                                <h5 class="card-title mx-3 mt-2" id="title"></h5>
                                 <p class="card-text mx-3" id="body"></p>
                                 <div class="card-footer p-0">
                                     <div class="d-flex align-items-center ms-3 me-2 py-2">

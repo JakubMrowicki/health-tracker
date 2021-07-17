@@ -10,6 +10,7 @@
                 </div>
                 <form id="editAccount" action="/account_settings" method="post" autocomplete="off">
                 <div class="modal-body" id="editBody">
+                    <p>Use the form below to change your username or password.</p>
                     <input type="text" style="display:none">
                     <input type="password" style="display:none">
                     <div class="form-floating mb-3">
@@ -57,6 +58,7 @@
                 </div>
                 <form id="editProfile" action="/edit_profile" method="post" autocomplete="off">
                 <div class="modal-body" id="editBody">
+                    <p>Use the form below to change your profile details like your name or bio.</p>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="firstname" id="profile-firstname" 
                         placeholder="What can we call you?" pattern="^[a-zA-Z]{2,10}$" minlength="2" maxlength="10" required>
