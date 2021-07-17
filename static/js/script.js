@@ -35,12 +35,14 @@ function account() {
     fetch('/account_settings').then((response) => {
         response.json().then((data) => {
             $('#new-username').val(data);
+            $(".tooltip").tooltip("hide");
             $('#accountModal').modal('show');
         })
     })
 }
 
 function confirm(id) {
+    $(".tooltip").tooltip("hide");
     $('#deleteModal').modal('show');
     $('#confirmFinal').attr('href', host + "/delete/" + id)
 }
@@ -135,7 +137,6 @@ function edit(id) {
 
     fetch(`/edit/${id}`).then((response) => {
         response.json().then((data) => {
-
             title.val(data['title']);
             body.val(data['body']);
             type.val(data['type']);
@@ -153,7 +154,7 @@ function edit(id) {
                 $('#pinAllow').attr('title', 'Maximum pins limit reached.');
                 initTooltips();
             }
-
+            $(".tooltip").tooltip("hide");
             $('#editModal').modal('show');
         })
     })
