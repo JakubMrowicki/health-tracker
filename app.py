@@ -67,6 +67,8 @@ def feed():
 def load():
     """ Route to return the posts """
 
+    if not is_logged():
+        return abort(400)
     db = list(mongo.db.entries.find({"user": session["user"], "pinned": True}).sort("_id", -1))
 
     entries = list(mongo.db.entries.find({"user": session["user"], "pinned": False}).sort("_id", -1))
@@ -303,7 +305,6 @@ def search():
             }).sort("_id", -1).limit(10))
         if not len(entries):
             flash("No results found, try different keywords.", "warning")
-            flash("Test", "error")
             return redirect(url_for('home'))
         return render_template("search.html", entries=entries)
     else:
