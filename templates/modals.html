@@ -10,9 +10,16 @@
                 </div>
                 <form id="editAccount" action="/account_settings" method="post" autocomplete="off">
                 <div class="modal-body" id="editBody">
-                    <p>Use the form below to change your username or password.</p>
-                    <input type="text" style="display:none">
-                    <input type="password" style="display:none">
+                    <div class="form-text">
+                        Confirm your old password to submit your changes.
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="old-password"
+                            name="old-password" placeholder="Choose a password you'll remember" 
+                            minlength="6" required>
+                        <label for="old-password">Current Password <sup>*</sup></label>
+                    </div>
+                    <hr class="d-md-none border-1 border-top mt-0 border-secondary">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="new-username"
                             name="username" placeholder="Enter your username"
@@ -27,15 +34,6 @@
                         <div class="form-text">
                             Your new password must be at least 6 characters long.
                         </div>
-                    </div>
-                    <div class="form-text">
-                        Confirm your old password to submit your changes.
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="old-password"
-                            name="old-password" placeholder="Choose a password you'll remember" 
-                            minlength="6" required>
-                        <label for="old-password">Current Password</label>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -62,12 +60,15 @@
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="firstname" id="profile-firstname" 
                         placeholder="What can we call you?" pattern="^[a-zA-Z]{2,10}$" minlength="2" maxlength="10" required>
-                        <label for="firstname">First Name</label>
+                        <label for="firstname">First Name <sup>*</sup></label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="url" pattern="https://.*" class="form-control" name="profile-image" id="profile-image" 
+                        <input type="url" pattern="^https?://(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:/[^/#?]+)+\.(?:jpg|gif|png)$" class="form-control" name="profile-image" id="profile-image" 
                         placeholder="Image URL">
                         <label for="profile-image">Profile Picture URL</label>
+                        <div class="form-text">
+                            Image should be .png .jpg or .gif
+                        </div>
                     </div>
                     <div class="form-floating mb-3">
                         <textarea type="text" class="form-control" name="bio" id="profile-bio"
@@ -82,7 +83,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Update profile</button>
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
                 </div>
                 </form>
             </div>
@@ -103,7 +104,7 @@
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="title" id="edit-title"
                             placeholder="Title of your diary entry" maxlength="70" required>
-                        <label for="title">Title</label>
+                        <label for="title">Title <sup>*</sup></label>
                     </div>
                     <div class="form-floating mb-3">
                         <textarea type="text" class="form-control" name="body" id="edit-body"
@@ -170,7 +171,7 @@
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="title" id="add-title"
                             placeholder="Title of your diary entry" maxlength="70" required>
-                        <label for="title">Title</label>
+                        <label for="title">Title <sup>*</sup></label>
                     </div>
                     <div class="form-floating mb-3">
                         <textarea type="text" class="form-control" name="body" id="add-body"
