@@ -468,8 +468,7 @@ def check_pins():
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
-            port=int(os.environ.get("PORT")),
-            debug=True)  # change at end to False
+            port=int(os.environ.get("PORT")))  # change at end to False
     app.register_error_handler(404, page_not_found)
     app.register_error_handler(500, internal_server)
     app.register_error_handler(400, handle_bad_request)
