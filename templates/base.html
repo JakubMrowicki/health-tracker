@@ -4,6 +4,14 @@
 <body class="noselect">
     <header>
         <!--Navbar-->
+        {% if error_page == true and "user" not in session %}
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url_for('home') }}">Health Tracker</a>
+                <a href="{{ url_for('register') }}" class="btn btn-outline-primary">Register</a>
+            </div>
+        </nav>
+        {% else %}
         <nav class="navbar navbar-expand-md navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand" href="{{ url_for('home') }}">Health Tracker</a>
@@ -23,6 +31,7 @@
                 </div>
             </div>
         </nav>
+        {% endif %}
 
         <!--Mobile Search Box-->
         <div id="search-box2" class="container">

@@ -96,6 +96,10 @@ small {
 
 /* Custom Elements Start */
 
+.vh-80 {
+    height: 80vh;
+}
+
 #search-box2 {
     display: none;
 }
