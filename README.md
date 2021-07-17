@@ -39,8 +39,8 @@ Below are some user stories which reveal how this website is useful for the end 
 + 'A user: I want to be able to search for a medication name and check if I have previously had an adverse reaction to it'
 + 'A user: I want to write down and save my doctor's advice so that I don't forget it'
 + 'A user: I want to be able to pin important entries to the top of my timeline, such as important things to mention to my doctor upon my next visit'
-+ 'A user: I want to be able to keep a well-being diary where I can write about how I'm feeling at that time'
-+ 'A user: I want my profile to diplay my current medications and allergies'
++ 'A user: I want to be able to keep a well-being diary where I can write about how I'm feeling'
++ 'A user: I want my profile to diplay my bio and allergies'
 
 # 3: User Experience(UX)
 ## Strategy Plane
@@ -67,17 +67,40 @@ Below are some user stories which reveal how this website is useful for the end 
 ---
 ## Structure Plane
 ### Information Architecture
-* The website will be lean in terms of written content, however there needs to be a home page that will introduce new users to the web app and it's features.
 * There should be annotations on inputs to best describe what they mean.
+### Data Structure
+__'users' Collection__
+key | type | purpose
+--- | --- | ---
+_id | objectid | unique id
+firstname | string | user's first name to be displayed in profile
+username | string | user's username
+password | string | user's password(hashed)
+profile_image | string | image url
+bio | string | user's bio for profile
+allergies | string | user's allergies for profile
+
+__'entries' Collection__
+key | type | purpose
+--- | --- | ---
+_id | objectid | unique id
+title | string | entry title
+body | string | entry body
+type | string | entry type
+pinned | boolean | true if entry is pinned
+date | string | timestamp of entry creation
+user | string | entry creator
+
 ### Interaction Design
-* There should be a way to edit a user's profile.
+* There should be a way to edit a user's profile/account settings
 * Each entry should be able to be pinned, edited and deleted.
+* Search functionality
 
 ---
 ## Skeleton Plane
 Wireframes can be found [here](https://github.com/JakubMrowicki/health-tracker/blob/master/static/docs/wireframes.pdf)
 
-The footer will contain copyright information and some social media links.
+The footer will contain copyright information.
 
 ---
 ## Surface Plane
@@ -159,9 +182,7 @@ I'm ignoring these errors because they come from modals, which are hidden by def
 
 CSS was Validated using [Jigsaw W3 Validator](https://jigsaw.w3.org/css-validator/) and returned no errors.
 
-JavaScript was Validated using [JSHint](https://jshint.com/)
-
-Alicia Ramirez' [Closing Tag Checker for HTML5](https://www.aliciaramirez.com/closing-tags-checker/) was used to further validate the code.
+JavaScript was Validated using [JSHint](https://jshint.com/) with no major errors.
 
 # 9: Website Deployment
 This project is deployed to the public by using Heroku. This is how I did it.
@@ -176,10 +197,7 @@ This project is deployed to the public by using Heroku. This is how I did it.
 [View On Heroku](http://health-diary-tracker.herokuapp.com/)
 
 # 10: Credits & Acknowledgments
-* [koala_dev](http://jsfiddle.net/koala_dev/3v2egwfs/7/) for their chevron rotation solution.
 * [Raeesh Alam](https://stackoverflow.com/a/66288369) for their snippet for initialising Bootstrap Tooltips.
 
-### Content
-* All written content is written by myself.
 # 11: Repository Support
 For support please email at [xdshiftblue@gmail.com](mailto:xdshiftblue@gmail.com)
