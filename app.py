@@ -1,4 +1,5 @@
 import os
+import requests
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for,
@@ -29,6 +30,10 @@ LAZY_LIMIT = 10
 
 @app.route("/", methods=["GET", "POST"])
 def home():
+    """
+    POST: Log in function.
+    This is the home page of the app.
+    """
     if request.method == "POST":
         check_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
@@ -51,6 +56,9 @@ def home():
 
 @app.route("/feed")
 def feed():
+    """
+    Enable a logged in user to view their feed.
+    """
     if not is_logged():
         return redirect(url_for("home"))
     user_info = mongo.db.users.find_one_or_404({"username": session["user"]})
@@ -65,7 +73,9 @@ def feed():
 
 @app.route("/load")
 def load():
-    """ Route to return the posts """
+    """
+    Enable a logged in user to request their own entries as json object.
+    """
 
     if not is_logged():
         return abort(400)
@@ -105,6 +115,9 @@ def load():
 
 @app.route("/signout")
 def signout():
+    """
+    Enable a logged in user to end their session
+    """
     if not is_logged():
         flash("You must be logged in to access this page.", "error")
         return render_template("welcome.html")
@@ -116,6 +129,9 @@ def signout():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    """
+    Enable a new user to register an account
+    """
     if request.method == "POST":
         username_check = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
@@ -154,6 +170,9 @@ def register():
 
 @app.route("/new", methods=["GET", "POST"])
 def new():
+    """
+    Enable a logged in user to create a new entry.
+    """
     if not is_logged():
         flash("You must be logged in to access this page.", "error")
         return render_template("welcome.html")
@@ -193,6 +212,10 @@ def new():
 
 @app.route("/pin/<entry_id>")
 def pin(entry_id):
+    """
+    Enable a logged in user to pin an entry to the top of their feed.
+    Check if user reached pin limit.
+    """
     if not is_object_id_valid(entry_id):
         abort(400)
     if not is_logged():
@@ -226,6 +249,9 @@ def pin(entry_id):
 
 @app.route("/delete/<entry_id>")
 def delete(entry_id):
+    """
+    Enable a logged in user delete their own entries.
+    """
     if not is_object_id_valid(entry_id):
         abort(400)
     if not is_logged():
@@ -249,8 +275,14 @@ def delete(entry_id):
 
 @app.route("/edit/<entry_id>", methods=["GET", "POST"])
 def edit(entry_id):
+    """
+    POST: Enable a logged in user to edit the contents of their entries
+    GET: Return a json object of requested entry
+    """
     if not is_object_id_valid(entry_id):
-        abort(400)
+        return abort(400)
+    if not is_logged():
+        return abort(404)
     entry = mongo.db.entries.find_one_or_404({"_id": ObjectId(entry_id)})
     pinned_count = list(mongo.db.entries.find({
                     "user": entry["user"],
@@ -296,6 +328,9 @@ def edit(entry_id):
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
+    """
+    Enable a logged in user to query their own entries.
+    """
     if request.method == "POST" and is_logged():
         query = request.form.get("query")
         entries = list(mongo.db.entries.find(
@@ -313,6 +348,9 @@ def search():
 
 @app.route("/edit_profile", methods=["GET", "POST"])
 def edit_profile():
+    """
+    Enable a logged in user to update profile details.
+    """
     if not is_logged():
         return abort(400)
     user_info = mongo.db.users.find_one(
@@ -320,6 +358,9 @@ def edit_profile():
             "username": session["user"]
         })
     if request.method == "POST":
+        if not is_url_image(request.form.get("profile-image")):
+            flash("Image URL you entered isn't valid, try a different image.", "warning")
+            return redirect(url_for("home"))
         mongo.db.users.update_one(
             {
                 "username": session["user"]
@@ -338,6 +379,9 @@ def edit_profile():
 
 @app.route("/account_settings", methods=["GET", "POST"])
 def account_settings():
+    """
+    Enable a logged in user to update their username or password.
+    """
     if not is_logged():
         return abort(400)
     user_info = mongo.db.users.find_one(
@@ -406,7 +450,7 @@ def handle_bad_request(e):
 
 
 def is_logged():
-    # check if user is signed in.
+    # check if user is signed in
     return "user" in session
 
 
@@ -414,6 +458,13 @@ def is_object_id_valid(id_value):
     # validate is the id_value is a valid ObjectId
     return id_value != "" and ObjectId.is_valid(id_value)
 
+
+def is_url_image(image_url):
+    # check if a url returns an image
+    # Credit: https://stackoverflow.com/a/48909668
+    image_formats = ("image/png", "image/jpeg", "image/jpg", "image/gif")
+    r = requests.head(image_url)
+    return r.headers["content-type"] in image_formats
 
 @app.route("/check_pins")
 def check_pins():
