@@ -121,8 +121,16 @@ def register():
             flash("User already exists, try logging in instead.", "warning")
             return redirect(url_for("home"))
         password_check = len(request.form.get("password"))
+        name_check = len(request.form.get("firstname"))
+        username_check = len(request.form.get("username"))
         if password_check < 6:
             flash("Your password is too short, make sure it's at least 6 characters long.", "warning")
+            return render_template("register.html")
+        elif name_check > 10:
+            flash("Your name is too long, please enter a name that is 10 characters or less.", "warning")
+            return render_template("register.html")
+        elif username_check > 15:
+            flash("Your username is too long, please enter a username that is 15 characters or less.", "warning")
             return render_template("register.html")
         new_user = {
             "firstname": request.form.get("firstname").lower().capitalize(),
@@ -345,6 +353,9 @@ def account_settings():
                 {"username": request.form.get("username").lower()})
             if username_check:
                 flash("Username is already taken.", "warning")
+                return redirect(url_for("feed"))
+            if len(request.form.get("username")) > 15:
+                flash("Your username is too long, please enter a username that is 15 characters or less.", "warning")
                 return redirect(url_for("feed"))
             mongo.db.users.update_one({
                 "username": session["user"]
