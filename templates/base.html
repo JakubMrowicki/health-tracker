@@ -3,10 +3,12 @@
 {% include "head.html" %}
 <body class="noselect">
     <header>
+        <!--Navbar-->
         <nav class="navbar navbar-expand-md navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand" href="{{ url_for('home') }}">Health Tracker</a>
                 <div class="d-flex justify-content-end">
+                    <!--Search Box-->
                     <form class="input-group g-0" method="POST" action="/search">
                         <div id="search-box" class="col-auto d-none d-md-block">
                             <input type="search" class="form-control rounded" name="query" id="query" placeholder="Search" required />
@@ -15,11 +17,14 @@
                             <button class="btn btn-outline-secondary ms-2" id="search-btn" type="submit" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search"><i class="fas fa-search"></i></button>
                         </div>
                     </form>
+                    <!--Nav Buttons-->
                     <button onclick="newEntry()" class="btn btn-success mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" title="New entry"><i class="fas fa-plus-circle"></i></button>
                     <a href="{{ url_for('signout') }}" class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sign out"><i class="fas fa-sign-out-alt"></i></a>
                 </div>
             </div>
         </nav>
+
+        <!--Mobile Search Box-->
         <div id="search-box2" class="container">
             <div class="row">
                 <form class="input-group g-0 d-flex justify-content-center my-5" method="POST" action="/search">
