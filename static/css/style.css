@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@600&display=swap');
 
 /*Overrides Start*/
@@ -12,11 +19,8 @@ html {
 body {
     /*Generated using cssmatic.com*/
     background: #ededed;
-    background: -moz-radial-gradient(center, ellipse cover, #ededed 0%, #e3e3e3 67%, #d6d6d6 100%);
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #ededed), color-stop(67%, #e3e3e3), color-stop(100%, #d6d6d6));
-    background: -webkit-radial-gradient(center, ellipse cover, #ededed 0%, #e3e3e3 67%, #d6d6d6 100%);
     background: -o-radial-gradient(center, ellipse cover, #ededed 0%, #e3e3e3 67%, #d6d6d6 100%);
-    background: -ms-radial-gradient(center, ellipse cover, #ededed 0%, #e3e3e3 67%, #d6d6d6 100%);
+    background: -o-radial-gradient(center, ellipse, #ededed 0%, #e3e3e3 67%, #d6d6d6 100%);
     background: radial-gradient(ellipse at center, #ededed 0%, #e3e3e3 67%, #d6d6d6 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#d6d6d6', GradientType=1 );
     overflow-x: hidden;
@@ -99,15 +103,15 @@ small {
 .rotate {
     font-size: 1rem;
     vertical-align: middle;
-    -moz-transition: all 0.15s ease-in;
     -webkit-transition: all 0.15s ease-in;
+    -o-transition: all 0.15s ease-in;
     transition: all 0.15s ease-in;
 }
 
 .rotate.down {
-    -moz-transform:rotate(90deg);
     -webkit-transform:rotate(90deg);
-    transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+        transform:rotate(90deg);
 }
 
 /* Custom Elements End */
@@ -116,8 +120,8 @@ small {
 
 .stats {
     background: rgb(232,232,232);
-    background: -moz-linear-gradient(0deg, rgba(232,232,232,1) 0%, rgba(255,255,255,1) 75%);
-    background: -webkit-linear-gradient(0deg, rgba(232,232,232,1) 0%, rgba(255,255,255,1) 75%);
+    background: -webkit-gradient(linear, left bottom, left top, from(rgba(232,232,232,1)), color-stop(75%, rgba(255,255,255,1)));
+    background: -o-linear-gradient(bottom, rgba(232,232,232,1) 0%, rgba(255,255,255,1) 75%);
     background: linear-gradient(0deg, rgba(232,232,232,1) 0%, rgba(255,255,255,1) 75%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e8e8e8",endColorstr="#ffffff",GradientType=1);
     color: #212529;

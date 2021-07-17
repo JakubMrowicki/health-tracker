@@ -9,7 +9,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="editAccount" action="/account_settings" method="post" autocomplete="off">
-                <div class="modal-body" id="editBody">
+                <div class="modal-body">
                     <div class="form-text">
                         Confirm your old password to submit your changes.
                     </div>
@@ -55,7 +55,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="editProfile" action="/edit_profile" method="post" autocomplete="off">
-                <div class="modal-body" id="editBody">
+                <div class="modal-body">
                     <p>Use the form below to change your profile details like your name or bio.</p>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="firstname" id="profile-firstname" 
@@ -71,12 +71,12 @@
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <textarea type="text" class="form-control" name="bio" id="profile-bio"
+                        <textarea class="form-control" name="bio" id="profile-bio"
                             placeholder="Write your bio here" style="height: 100px" maxlength="200"></textarea>
                         <label for="bio">Bio</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <textarea type="text" class="form-control" name="allergens" id="profile-allergens"
+                        <textarea class="form-control" name="allergens" id="profile-allergens"
                             placeholder="Do you have allergies?" style="height: 100px" maxlength="200"></textarea>
                         <label for="allergens">Allergens</label>
                     </div>
@@ -99,20 +99,20 @@
                     <h5 class="modal-title">Edit Entry</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="editForm" action="" method="post" autocomplete="off">
-                <div class="modal-body" id="editBody">
+                <form id="editForm" action="/edit" method="post" autocomplete="off">
+                <div class="modal-body">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" name="title" id="edit-title"
                             placeholder="Title of your diary entry" maxlength="70" required>
                         <label for="title">Title <sup>*</sup></label>
                     </div>
                     <div class="form-floating mb-3">
-                        <textarea type="text" class="form-control" name="body" id="edit-body"
+                        <textarea class="form-control" name="body" id="edit-body"
                             placeholder="Write your diary entry here" style="height: 100px" maxlength="200"></textarea>
                         <label for="body">Body</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <select class="form-select" name="type" id="edit-type" required>
+                        <select class="form-select" name="type" id="edit-type">
                             <option value="1" selected>Diary Entry</option>
                             <option value="2">Appointment</option>
                             <option value="3">Prescription</option>
@@ -146,12 +146,12 @@
                     <h5 class="modal-title">Delete Entry</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="editBody">
+                <div class="modal-body">
                     <p>Are you sure you want to delete this entry?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="" id="confirmFinal" type="submit" class="btn btn-danger">Delete Entry</a>
+                    <a href="#" id="confirmFinal" class="btn btn-danger">Delete Entry</a>
                 </div>
             </div>
         </div>
@@ -174,12 +174,12 @@
                         <label for="title">Title <sup>*</sup></label>
                     </div>
                     <div class="form-floating mb-3">
-                        <textarea type="text" class="form-control" name="body" id="add-body"
+                        <textarea class="form-control" name="body" id="add-body"
                             placeholder="Write your diary entry here" style="height: 100px" maxlength="200"></textarea>
                         <label for="body">Body</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <select class="form-select" name="type" id="add-type" required>
+                        <select class="form-select" name="type" id="add-type">
                             <option value="1" selected>Diary Entry</option>
                             <option value="2">Appointment</option>
                             <option value="3">Prescription</option>

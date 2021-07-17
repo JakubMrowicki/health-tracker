@@ -57,7 +57,7 @@ Below are some user stories which reveal how this website is useful for the end 
 * Provide a timeline of the users entries sorted by new to old.
 * Allow the user to search for keywords. For example the user might have a diary entry where they have an adverse reaction to particular medication and may choose to find an alternative.
 * Allow the user to pin, edit and delete diary entries.
-* Allow the user to make their profile public if they choose to share their profile link.
+
 ### Content Requirements
 * Home page where new users are introduced to the web app and it's features.
 * Private profile where you can see your current medications, any allergies etc.
@@ -88,13 +88,12 @@ Colour | Colour Code | Preview
 Light-Blue | #336AFF | ![#F26432](https://via.placeholder.com/15/336AFF/000000?text=+)
 Green | #2B9348 | ![!2B9348](https://via.placeholder.com/15/2B9348/000000?text=+)
 Red | #D90429 | ![#D90429](https://via.placeholder.com/15/D90429/000000?text=+)
-Dark-Grey | #191C24 | ![#191C24](https://via.placeholder.com/15/191C24/000000?text=+)
 
 
 __Text Body Colours:__
 Colour | Colour Code | Preview
 --- | --- | :---:
-Off-White | #FAFAFA | ![#FAFAFA](https://via.placeholder.com/15/FAFAFA/000000?text=+)
+Charcoal | #2c3e50 | ![#2c3e50](https://via.placeholder.com/15/2c3e50/000000?text=+)
 
 
 ### Typography
@@ -109,6 +108,7 @@ Off-White | #FAFAFA | ![#FAFAFA](https://via.placeholder.com/15/FAFAFA/000000?te
 * Delete entries with confirmation
 * Pin entries to be stuck to the top(Limited to 5 pins)
 * Search entries function
+* Edit Profile and Account settings function
 
 ### Future Features
 * 
@@ -131,15 +131,15 @@ This project uses the following technologies:
 
 # 6: Trials & Testing
 * Website was run through the Mobile-Friendly Test by Google and was deemed Mobile Friendly. To further test this, I opened the website on my phone as well as friends and co-workers phones.
-    * [Google Mobile-Friendly Test](https://search.google.com/test/mobile-friendly?id=YtC6Iv3b3o0T8zjpbLbqcw)
+    * [Google Mobile-Friendly Test](https://search.google.com/test/mobile-friendly?id=FR_v3_v6Gc652veMM-1JZg)
 * Validated HTML, CSS and JS using validators.
-* Checked that all links are working using [deadlinkchecker.com](https://www.deadlinkchecker.com/website-dead-link-checker.asp)
+* Checked that all links are working.
 * Ran style.css through [Autoprefixer](https://autoprefixer.github.io/) to add vendor prefixes.
-* Used [Color Contrast Accessibility Validator](https://color.a11y.com/Contrast/) to check for Colour Contrast issues.
-* Checked and fixed any typos and grammar issues that I could find by using a [Chrome Extension called Webpage Spell-Check](https://chrome.google.com/webstore/detail/webpage-spell-check/mgdhaoimpabdhmacaclbbjddhngchjik).
 * Tested the register and log in function to ensure it's working correctly on desktop, mobile and the Heroku deployment version.
 * Tested and ensured that a user cannot pin more than 5 entries at a time.
 * Tested the navigation bar to ensure no bugs are present and that it behaves accordingly.
+* Tested that all non-public pages return a 404 error if accessed by a user not signed in.
+* Tested that you cannot edit another users entries, even if you have the ObjectId of the entry.
 
 # 7: Problem Areas & Solutions
 * You could pin more than 5 entries if you pinned it upon creation with 5 pins already present.
@@ -152,10 +152,10 @@ This project uses the following technologies:
     * __Solution__ I noticed in the terminal log that the favicon was returning a 404. Turn out web browsers like to check for one even if it's not declared in the html. Added a favicon to prevent it happening again.
 
 # 8: Code Validation
-HTML was Validated using the [W3 Validator](https://validator.w3.org/) and returned no errors and 1 warning to be ignored.
-![warning](https://i.imgur.com/msqbuIj.png)
+HTML was Validated using the [W3 Validator](https://validator.w3.org/) and returned 12 errors to be ignored.
+I'm ignoring these errors because they come from modals, which are hidden by default.
 
-The reason why I have prevented users from resizing the page is because on mobiles, double tapping on the screen will zoom into the game. This is undesireable and bad UX.
+![errors](https://i.imgur.com/yQ6S13B.png)
 
 CSS was Validated using [Jigsaw W3 Validator](https://jigsaw.w3.org/css-validator/) and returned no errors.
 

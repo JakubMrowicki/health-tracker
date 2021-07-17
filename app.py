@@ -40,7 +40,6 @@ def home():
         if check_user:
             if check_password_hash(check_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
-                flash("Welcome, {}!".format(check_user["firstname"]), "success")
                 return redirect(url_for("home"))
             else:
                 flash("Incorrect username or password. Please try again.", "error")
@@ -122,7 +121,6 @@ def signout():
         flash("You must be logged in to access this page.", "error")
         return render_template("welcome.html")
     else:
-        flash("You've been signed out.", "success")
         session.pop("user")
         return redirect(url_for("home"))
 
@@ -158,7 +156,7 @@ def register():
         mongo.db.users.insert_one(new_user)
 
         session["user"] = request.form.get("username").lower()
-        flash("You're in!", "success")
+        flash("You're in! Click on the + button above to create your first entry.", "success")
         return redirect(url_for("home"))
     else:
         if is_logged():
@@ -404,7 +402,7 @@ def account_settings():
                 return redirect(url_for("feed"))
             mongo.db.users.update_one({
                 "username": session["user"]
-            },{
+            }, {
                 "$set": {
                     "username": request.form.get("username").lower(),
                     "password": password
@@ -465,6 +463,7 @@ def is_url_image(image_url):
     image_formats = ("image/png", "image/jpeg", "image/jpg", "image/gif")
     r = requests.head(image_url)
     return r.headers["content-type"] in image_formats
+
 
 @app.route("/check_pins")
 def check_pins():

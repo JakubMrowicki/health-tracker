@@ -1,52 +1,35 @@
-let host = location.protocol + "//" + window.location.hostname;
-let path = window.location.pathname;
-
-function backFunc(duration = 150) {
-    $('#login').slideUp( duration, function() {
-        // Animation complete.
-    });
-    $('#default').slideDown( duration, function() {
-        // Animation complete.
-    });
-}
-
-function loginFunc(duration = 150) {
-    $('#default').slideUp( duration, function() {
-        // Animation complete.
-    });
-    $('#login').slideDown( duration, function() {
-        // Animation complete.
-    });
-}
-
+//This function opens a modal to enable the user to edit their profile details
 function profile() {
     fetch('/edit_profile').then((response) => {
         response.json().then((data) => {
-            $('#profile-firstname').val(data['firstname']);
-            $('#profile-image').val(data['profile_image']);
-            $('#profile-bio').val(data['bio']);
-            $('#profile-allergens').val(data['allergies']);
+            $('#profile-firstname').val(data.firstname);
+            $('#profile-image').val(data.profile_image);
+            $('#profile-bio').val(data.bio);
+            $('#profile-allergens').val(data.allergies);
             $('#profileModal').modal('show');
-        })
-    })
+        });
+    });
 }
 
+//This function opens a modal to enable the user to edit their username/password
 function account() {
     fetch('/account_settings').then((response) => {
         response.json().then((data) => {
             $('#new-username').val(data);
             $(".tooltip").tooltip("hide");
             $('#accountModal').modal('show');
-        })
-    })
+        });
+    });
 }
 
+//This function opens a modal so the user can confirm deletion of entry
 function confirm(id) {
     $(".tooltip").tooltip("hide");
     $('#deleteModal').modal('show');
-    $('#confirmFinal').attr('href', host + "/delete/" + id)
+    $('#confirmFinal').attr('href', "/delete/" + id);
 }
 
+//This function opens a modal to enable the user to create a new entry
 function newEntry() {
     fetch('check_pins').then((response) => {
         response.json().then((data) => {
@@ -59,15 +42,9 @@ function newEntry() {
                 $('#add-pinAllow').attr('title', 'Maximum pins limit reached.');
                 initTooltips();
             }
-        })
-    })
+        });
+    });
 }
-
-if($('#alert').length) {
-    loginFunc(0);
-}
-
-//Functions related to the search functionality.
 
 //This bind enables an alternative search box for mobile users.
 $('#search-btn').bind('click', function(e) {
@@ -93,14 +70,6 @@ function searchHider() {
     }
 }
 
-$('#log-in-button').bind('click', function() {
-    loginFunc();
-});
-
-$('#back-button').bind('click', function() {
-    backFunc();
-});
-
 //This function seeks out all elements with ID="alert"
 //and assigns a bind function so the user can click it away
 //Credit for selector: https://stackoverflow.com/a/16191756
@@ -110,16 +79,18 @@ $('div[id^="alert"]').each(function() {
     });
 });
 
-//Initialise Bootstrap Tooltips
+//Initialise Bootstrap Tooltips MD+ Only
 //Tooltips need to be re-initialised when a new tooltip is added to the page.
 function initTooltips() {
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        this.addEventListener('hide.bs.tooltip', function () {
-            new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    });
+    if ($(window).width() >  768) {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            this.addEventListener('hide.bs.tooltip', function () {
+                new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    }
 }
 initTooltips();
 
@@ -137,17 +108,17 @@ function edit(id) {
 
     fetch(`/edit/${id}`).then((response) => {
         response.json().then((data) => {
-            title.val(data['title']);
-            body.val(data['body']);
-            type.val(data['type']);
-            if(data['pinned'] == true) {
+            title.val(data.title);
+            body.val(data.body);
+            type.val(data.type);
+            if(data.pinned == true) {
                 pinned.prop('checked', true);
             } else {
                 pinned.prop('checked', false);
             }
-            form.prop('action', "/edit/" + data['_id'])
+            form.prop('action', "/edit/" + data._id);
 
-            if(!data['pin_allowed']) {
+            if(!data.pin_allowed) {
                 pinned.prop('disabled', true);
                 $('#pinAllow').attr('data-bs-toggle', 'tooltip');
                 $('#pinAllow').attr('data-bs-placement', 'bottom');
@@ -156,178 +127,6 @@ function edit(id) {
             }
             $(".tooltip").tooltip("hide");
             $('#editModal').modal('show');
-        })
-    })
-}
-
-/*
-Lazy loading for diary entries.
-This is an adapted script from the link below.
-Credit: https://pythonise.com/categories/javascript/infinite-lazy-loading
-*/
-
-if (path == "/feed") {
-    // Get references to the dom elements
-    let scroller = document.querySelector("#scroller");
-    let template = document.querySelector('#post_template');
-    let sentinel = document.querySelector('#sentinel');
-
-    // Set a counter to count the items loaded
-    let counter = 0;
-
-    // Check if function is already in progress
-    let working = false;
-
-    // Function to request new items and render to the dom
-    function loadItems() {
-        working = true;
-        sentinel.innerHTML = `<div class="spinner-border" role="status"></div>`;
-        // Use fetch to request data and pass the counter value in the QS
-        fetch(`/load?c=${counter}`).then((response) => {
-
-            // Convert the response data to JSON
-            response.json().then((data) => {
-
-                // If empty JSON, exit the function
-                if (!data.length) {
-
-                    // Replace the spinner with "No more posts"
-                    sentinel.innerHTML = "No more posts";
-                    working = false;
-                    return;
-                }
-
-                // Iterate over the items in the response
-                for (var i = 0; i < data.length; i++) {
-
-                    // Clone the HTML template
-                    let template_clone = template.content.cloneNode(true);
-
-                    let pinUrl = host + "/pin/" + data[i]['_id'];
-
-                    // Query & update the template content
-                    template_clone.querySelector("#title").innerHTML = data[i]['title'];
-                    if (!data[i]['body']) {
-                        template_clone.querySelector("#body").remove();
-                    } else {
-                        template_clone.querySelector("#body").innerHTML = data[i]['body'];
-                    }
-                    let type
-                    if (data[i]['type'] == 1) {
-                        type = "Diary Entry";
-                    } else if (data[i]['type'] == 2) {
-                        type = "Appointment";
-                    } else if (data[i]['type'] == 3) {
-                        type = "Prescription";
-                    } else if (data[i]['type'] == 4) {
-                        type = "Doctor's Advice";
-                    } else if (data[i]['type'] == 5) {
-                        type = "Allergic Reaction";
-                    }
-                    template_clone.querySelector("#date").innerHTML = data[i]['date'];
-                    template_clone.querySelector("#type").innerHTML = type;
-                    template_clone.querySelector("#delete-btn").setAttribute("onclick", "confirm('" + data[i]['_id'] + "')");
-                    if (data[i]['pinned']) {
-                        template_clone.querySelector("#pin-btn").innerHTML = `<i class="fas fa-star"></i>`;
-                        template_clone.querySelector("#pin-btn").setAttribute("title", "Unpin");
-                        template_clone.querySelector("#title").innerHTML = `<i style="color: #FFD700" class="fas fa-star"></i> ${data[i]['title']}`;
-                    }
-                    template_clone.querySelector("#pin-btn").setAttribute("href", pinUrl);
-                    template_clone.querySelector("#edit-btn").setAttribute("onclick", "edit('" + data[i]['_id'] + "')");
-
-                    // Append template to dom
-                    scroller.appendChild(template_clone);
-
-                    // Increment the counter
-                    counter++;
-                    initTooltips();
-                    working = false;
-                    sentinel.innerHTML = "No more posts";
-                }
-            })
-        })
-    }
-
-    // Create a new IntersectionObserver instance
-    var intersectionObserver = new IntersectionObserver(entries => {
-
-        // If intersectionRatio is 0, the sentinel is out of view
-        // and we don't need to do anything. Exit the function
-        if (entries[0].intersectionRatio <= 0) {
-            return;
-        }
-
-        // Call the loadItems function
-        loadItems();
+        });
     });
-
-    // Instruct the IntersectionObserver to watch the sentinel
-    // if sentinel exists
-    if ($(sentinel).length) {
-        intersectionObserver.observe(sentinel);
-    }
-
-    
-    // Check if a user is trying to scroll past the end of the page.
-    // This is a combination of the three below scripts.
-    // Credit: https://stackoverflow.com/a/3898152 https://stackoverflow.com/a/10545584 https://stackoverflow.com/a/46248086
-
-
-    $(window).bind('mousewheel', function(event) {
-        if (event.originalEvent.wheelDelta < 0) {
-            if($(window).scrollTop() + $(window).height() == $(document).height() && !working) {
-                loadItems();
-            }
-        }
-    });
-
-    // If on mobile, enable swipe up to load more.
-
-    if ($(window).width() <=  768) {
-        var pStart = {x: 0, y:0};
-        var pStop = {x:0, y:0};
-        
-        function swipeStart(e) {
-            if (typeof e['targetTouches'] !== "undefined"){
-                var touch = e.targetTouches[0];
-                pStart.x = touch.screenX;
-                pStart.y = touch.screenY;
-            } else {
-                pStart.x = e.screenX;
-                pStart.y = e.screenY;
-            }
-        }
-        
-        function swipeEnd(e){
-            if (typeof e['changedTouches'] !== "undefined"){
-                var touch = e.changedTouches[0];
-                pStop.x = touch.screenX;
-                pStop.y = touch.screenY;
-            } else {
-                pStop.x = e.screenX;
-                pStop.y = e.screenY;
-            }
-        
-            swipeCheck();
-        }
-        
-        function swipeCheck(){
-            var changeY = pStart.y - pStop.y;
-            var changeX = pStart.x - pStop.x;
-            if (isPullUp(changeY, changeX) && !working) {
-                loadItems();
-            }
-        }
-        
-        function isPullUp(dY, dX) {
-            // methods of checking slope, length, direction of line created by swipe action 
-            return dY > 0 && (
-                (Math.abs(dX) <= 100 && Math.abs(dY) >= 200)
-                || (Math.abs(dX)/Math.abs(dY) <= 0.3 && dY >= 60)
-            );
-        }
-        
-        document.addEventListener('touchstart', function(e){ swipeStart(e); }, false);
-        document.addEventListener('touchend', function(e){ swipeEnd(e); }, false);
-    }
 }

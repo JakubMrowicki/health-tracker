@@ -24,23 +24,28 @@
                     <div class="card shadow-sm w-100 pt-3 my-3">
                         <div class="d-flex align-items-center px-3 mb-3">
                             <div class="d-block">
+                                <!-- User Profile Image -->
                                 {%- if user.profile_image|length > 1 -%}
-                                <img src="{{ user.profile_image }}" class="rounded-circle" width="70" height="70">
+                                <img src="{{ user.profile_image }}" class="rounded-circle" alt="profile image" width="70" height="70">
                                 {%- else -%}
-                                <img src="https://eu.ui-avatars.com/api/?size=155&bold=true&length=1&name={{ user.firstname[0] }}" class="rounded-circle" width="70" height="70">
+                                <img src="https://eu.ui-avatars.com/api/?size=155&bold=true&length=1&name={{ user.firstname[0] }}"
+                                    alt="profile image" class="rounded-circle" width="70" height="70">
                                 {%- endif -%}
                             </div>
                             <div class="ms-3">
+                                <!-- User Info -->
                                 <h5 class="my-0">{{ user.firstname }}</h5> <span>Standard User</span>
                             </div>
                             <div class="ms-auto p-2 d-md-none d-lg-block rounded stats">
                                 <div class="d-flex flex-column">
+                                    <!-- Entry Counter -->
                                     <span class="text-center">{{ entries|length }}</span>
                                     <span class="entries">Entries</span>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer p-0">
+                            <!-- Edit Profile & Account Settings Area -->
                             <div class="d-flex justify-content-end justify-content-md-end justify-content-md-start align-items-center ms-3 me-2 py-2">
                                 <small class="me-auto text-muted d-none d-md-block d-lg-none">Entries: {{ entries|length }}</small>
                                 <button onclick="profile()" class="btn btn-sm btn-primary">Edit Profile</button>
@@ -53,6 +58,7 @@
                 </div>
                 <div class="col-12 d-flex align-items-stretch">
                     <div class="card shadow-sm w-100 p-3">
+                        <!-- Bio Area -->
                         <span>
                             {%- if user.bio|length > 1 -%}
                             {{- user.bio -}}
@@ -61,6 +67,7 @@
                             {%- endif -%}
                         </span>
                         <h6 class="fw-bolder border-bottom mt-1">Allergies:</h6>
+                        <!-- Allergies Area -->
                         <span>
                             {%- if user.allergies|length > 1 -%}
                                 {{- user.allergies -}}
@@ -87,13 +94,19 @@
                                         <small class="me-auto text-muted">Date: <span id="date"></span></small>
                                         <ul class="list-inline p-0 m-0">
                                             <li class="list-inline-item m-0">
-                                                <button class="btn btn-primary btn-sm" id="edit-btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fas fa-edit"></i></button>
+                                                <!-- Edit Button -->
+                                                <button class="btn btn-primary btn-sm" id="edit-btn" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Edit"><i class="fas fa-edit"></i></button>
                                             </li>
                                             <li class="list-inline-item mx-1">
-                                                <a class="btn btn-success btn-sm" id="pin-btn" href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Pin"><i class="far fa-star"></i></a>
+                                                <!-- Pin Button -->
+                                                <a class="btn btn-success btn-sm" id="pin-btn" href="#" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    title="Pin"><i class="far fa-star"></i></a>
                                             </li>
                                             <li class="list-inline-item">
-                                                <button class="btn btn-danger btn-sm" id="delete-btn" onclick="confirm(this)" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Forever"><i class="fas fa-trash"></i></button>
+                                                <!-- Delete Button -->
+                                                <button class="btn btn-danger btn-sm" id="delete-btn" onclick="confirm(this)" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" title="Delete Forever"><i class="fas fa-trash"></i></button>
                                             </li>
                                         </ul>
                                     </div>
